@@ -1,0 +1,13 @@
+.ttt-square {
+  border: solid 3px grey;
+  width: 150px;
+  height: 150px;
+  float: left;
+  font-size: 100px;
+  text-align: center;
+  line-height: 150px;
+}
+
+.ttt-row {
+  margin-left:45px;
+}

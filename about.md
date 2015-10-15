@@ -10,6 +10,8 @@ My background is in theoretical physics and growth hacking. I've grown out of th
 
 Welcome to my portfolio site and blog! I hope you enjoy your stay.
 
+<br />
+
 ### Projects
 
 **[BeautyMNL](http://beautymnl.com)** - the best and biggest beauty e-commerce site in the Philippines.
@@ -31,5 +33,11 @@ Welcome to my portfolio site and blog! I hope you enjoy your stay.
 **[Reddit Clone](https://github.com/adlersantos/reddit_clone)** - a Reddit Clone with a recursive implementation of nested comments.
 
 **[Collabspot](collabspot.com)** - a Google Chrome extension that integrates 37signals Highrise, SugarCRM, and Salesforce with Gmail.
+
+<br />
+
+Still bored? Come play some Tic-tac-toe. (Warning: It's unbeatable)
+
+{% include tictactoe.html %}
 
 {% include footer.html %}
