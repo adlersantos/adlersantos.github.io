@@ -10,7 +10,7 @@ highlighter: pygments
 paginate: 10
 baseurl: /
 domain_name: 'http://adlersantos.com'
-google_analytics: 'UA-XXXXXXXX-X'
+google_analytics: 'UA-44190159-1'
 disqus: false
 disqus_shortname: 'your-disqus-shortname'
 
