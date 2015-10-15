@@ -36,8 +36,31 @@ Welcome to my portfolio site and blog! I hope you enjoy your stay.
 
 <br />
 
-Still bored? Come play some Tic-tac-toe. (Warning: It's unbeatable)
+### Education
+
+- **Master of Science in Physics**, Ateneo de Manila University (2011)
+
+- **Bachelor of Science in Physics**, Ateneo de Manila University (2008)
+
+<br />
+
+### Publications
+
+[Polarization ellipse and Stokes parameters in geometric algebra](http://www.opticsinfobase.org/josaa/abstract.cfm?uri=josaa-29-1-89) - J. Opt. Soc. Am., Vol. 29, Issue 1, pp. 89-98 (2012)
+
+I reviewed a paper for Optics Letters:
+
+[Partial isometries, unitary operators and complementary operators in polarization optics](https://www.opticsinfobase.org/ol/abstract.cfm?URI=ol-39-10-2860) - Optics Letters, Vol. 39, Issue 10, pp. 2860-2863 (2014)
+
+<br />
+
+### Recognitions
+
+Winner - [Google Apps Developer Challenge 2012](https://github.com/adlersantos/adlersantos.github.io.git)
+
+<br />
+
+Still bored? Come play some Tic-tac-toe. (_Warning: It's unbeatable_)
 
 {% include tictactoe.html %}
-
 {% include footer.html %}
