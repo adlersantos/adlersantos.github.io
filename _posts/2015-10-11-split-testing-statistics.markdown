@@ -132,7 +132,7 @@ In summary, a two-tailed p-value that's less than 0.05 allows us to declare a wi
 
 [For some math/physics textbook pun, I leave it as an exercise for the reader to show that Scenario X (200 signups vs 15 signups) has a two-tailed p-value that's almost zero, i.e. there is almost zero probability that the null hypothesis is true, which implies that Promo A is a clear winner.]
 
-# Two-tailed p-value in Python and Ruby
+# Two-tailed p-value in Ruby and Python
 
 For your own use, I've coded $p'$ in Ruby and Python. All you need are the number of people who converted and the number of impressions for each of the two variations in the experiment (labeled A and B below).
 
