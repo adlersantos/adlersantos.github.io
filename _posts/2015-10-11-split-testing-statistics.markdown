@@ -114,7 +114,7 @@ p'_Y(z_Y, 0, 1) &= 2 \times \text{cdf}(-0.737, 0, 1) \\
 \end{align}
 $$
 
-There's a 46.1% probability that the difference between 300 signups and 285 signups is insignificant. Since there's only a 50/50 chance that Promo A is the winner when we see values like in Scenario Y, it's not very reasonable to declare Promo A the winner for this scenario . The null hypothesis holds and we can safely conclude that there's no winner in this scenario.
+There's a 46.1% probability that the difference between 300 signups and 285 signups is insignificant. Since there's only about a 50/50 chance that Promo A is the winner when we see values like in Scenario Y, it's not very reasonable to declare Promo A the winner for this scenario . The null hypothesis holds and we can safely conclude that there's no winner in this scenario.
 
 How about for Scenario Z ($n_A = 300$, $n_B = 265$)? The values are slightly farther from each other than in Scenario Y. Can we say that the null hypothesis still holds? Let statistics guide us by calculating $z_Z$ and $p'_Z$ for this scenario:
 
@@ -132,11 +132,56 @@ In summary, a two-tailed p-value that's less than 0.05 allows us to declare a wi
 
 [For some math/physics textbook pun, I leave it as an exercise for the reader to show that Scenario X (200 signups vs 15 signups) has a two-tailed p-value that's almost zero, i.e. there is almost zero probability that the null hypothesis is true, which implies that Promo A is a clear winner.]
 
+# Two-tailed p-value in Python and Ruby
+
+For your own use, I've coded $p'$ in Ruby and Python. All you need are the number of people who converted and the number of impressions for each of the two variations in the experiment (labeled A and B below).
+
+**Ruby**
+
+{% highlight ruby %}
+def two_tailed_p_value(n_A, N_A, n_B, N_B, mean=0, std=1)
+  p_A = 1.0 * n_A / n_A
+  p_B = 1.0 * n_B / n_B
+
+  sigma_A = Math.sqrt(p_A * (1 - p_A) / N_A)
+  sigma_B = Math.sqrt(p_B * (1 - p_B) / N_B)
+
+  z = (p_B - p_A) / Math.sqrt(sigma_A**2 + sigma_B**2)
+
+  erf_coefficient = (z < mean) ? -1 : 1
+  erf_arg = (z - mean) / (Math.sqrt(2) * std)
+
+  1 + erf_coefficient * Math.erf(erf_arg)
+end
+{% endhighlight %}
+
+**Python**
+
+{% highlight python %}
+import math
+from __future__ import division
+
+def two_tailed_p_value(n_A, N_A, n_B, N_B, mean=0, std=1):
+    p_A = n_A / n_A
+    p_B = n_B / n_B
+
+    sigma_A = math.sqrt(p_A * (1 - p_A) / N_A)
+    sigma_B = math.sqrt(p_B * (1 - p_B) / N_B)
+
+    z = (p_B - p_A) / math.sqrt(sigma_A**2 + sigma_B**2)
+
+    erf_coefficient = -1 if z < mean else 1
+    erf_arg = (z - mean) / (math.sqrt(2) * std)
+
+    return 1 + erf_coefficient * math.erf(erf_arg)
+end
+{% endhighlight %}
+
 ### Footnotes
 
 **`[1]`** To make the statistical analysis work, it is required that the "promo viewed" events must be independent. Every person visiting the site must only see one type of promo. There are rare cases when the same person gets to view the two promos, say by using different browsers, devices, or locations. We assume these cases to have a negligible effect on our analysis.
 
-**`[2]`** We don't have to calculate the $erf$ integral ourselves. There are computational libraries that can do this such as Python's math.erf or Ruby's Math.erf function.
+**`[2]`** We don't have to calculate the $erf$ integral ourselves. There are computational libraries that can do this such as Python's `math.erf` or Ruby's `Math.erf` function.
 
 **`[3]`** Also called the "two-sided p-value".
 
