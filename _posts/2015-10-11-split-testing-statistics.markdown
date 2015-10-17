@@ -94,13 +94,13 @@ The CDF essentially gives the normal probability above or below a certain value 
 
 # The Two-Tailed p-value: Is There a Winner?
 
-Let's go back to the problem of declaring a winner for any of the split-testing scenarios Y and Z. Contrary to the z-statistic, the probability that the "no winner" hypothesis is false is given by multiplying the CDF by two. This is the definition of the _two-tailed p-value_, which we define as $p'$ since it's a probability value `[3]`.
+Let's go back to the problem of declaring a winner for any of the split-testing scenarios Y and Z. The z-statistic, manifested as a probability, is the probability that the "no winner" hypothesis is true. This is in the Bayesian sense, where the probability is a _degree-of-belief_ that there is no winner given an outcome from the experiment. We can compute this by simply multiplying the CDF by two. This is the definition of the _two-tailed p-value_, which we define as $p'$ since it's a probability value `[3]`:
 
 $$
 p'(z, \mu, \sigma) = 2 \times \text{cdf}(z, \mu, \sigma)
 $$
 
-Another way to interpret $p'$ is that it gives us the probability of seeing such a large difference in a split-testing scenario if there was indeed no winner. The close $p'$ is to zero, the bigger the probability that there is a winning variant.
+Another way to interpret $p'$ is that it gives us the probability of seeing such a large difference in a split-testing scenario if there was indeed no winner. The closer $p'$ is to zero, the greater the probability that there's a winning variant.
 
 Let's calculate the two-tailed p-values of Scenarios Y and Z. Since Promo A has better conversion, calculating $p'$ will help us declare with confidence whether or not Promo A is a winner. For simplicity, we can assume a mean of zero and a standard deviation of one `[4]`. This means all we have to do is to calculate $z$ for every scenario, and use it to calculate $p'$.
 

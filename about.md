@@ -8,7 +8,7 @@ I'm a data scientist with the blood of a software engineer.
 
 My background is in theoretical physics and growth hacking. I've grown out of the scholarly halls of the academe to solve tech problems by combining code, data, and mathematics.
 
-Welcome to my portfolio site and blog! I hope you enjoy your stay.
+Welcome to my portfolio site and blog! I hope you'll enjoy your stay.
 
 <br />
 
