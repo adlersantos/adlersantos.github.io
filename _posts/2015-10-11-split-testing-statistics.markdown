@@ -139,12 +139,12 @@ For your own use, I've coded $p'$ in Ruby and Python. All you need are the numbe
 **Ruby**
 
 {% highlight ruby %}
-def two_tailed_p_value(n_A, N_A, n_B, N_B, mean=0, std=1)
-  p_A = 1.0 * n_A / n_A
-  p_B = 1.0 * n_B / n_B
+def two_tailed_p_value(n_A, nv_A, n_B, nv_B, mean=0, std=1)
+  p_A = 1.0 * n_A / nv_A
+  p_B = 1.0 * n_B / nv_B
 
-  sigma_A = Math.sqrt(p_A * (1 - p_A) / N_A)
-  sigma_B = Math.sqrt(p_B * (1 - p_B) / N_B)
+  sigma_A = Math.sqrt(p_A * (1 - p_A) / nv_A)
+  sigma_B = Math.sqrt(p_B * (1 - p_B) / nv_B)
 
   z = (p_B - p_A) / Math.sqrt(sigma_A**2 + sigma_B**2)
 
