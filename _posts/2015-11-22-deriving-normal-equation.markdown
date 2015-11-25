@@ -18,7 +18,7 @@ x_{1,1} & \dots & x_{1,n} \\
 x_{m,1} & \dots & x_{m,n} \end{array} \right)
 $$
 
-is a matrix of real numbers where $m$ is the number of samples (or rows), and $n$ is the number of features (or columns),
+is a matrix of real numbers with $m$ as the number of samples (or rows), and $n$ is the number of features (or columns),
 
 $$
 \vec{\theta} = \left( \begin{array}{c}
