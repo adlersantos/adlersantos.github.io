@@ -135,13 +135,15 @@ $$
 \end{align}
 $$
 
-The term $\text{tr}(\vec{y}^T \vec{y})$ has vanished because it's treated as a constant when we're taking the gradient with respect to $\theta$. Thus, we are now left with
+The term $\text{tr}(\vec{y}^T \vec{y})$ has vanished because it's treated as a constant when we're taking the gradient with respect to $\theta$.
+
+We are now left with
 
 $$
 \nabla_\theta J(\vec{\theta}) = \frac{1}{2} \nabla_\theta \left[ \text{tr}(\vec{\theta}^T X^T X \vec{\theta}) - 2\text{tr}(\vec{\theta}^T X^T \vec{y}) \right].
 $$
 
-If use the derived theorem above $\nabla_{A^T} f(D) = B^T A^T + BA^T$ and substitute as follows,
+If we use our derived theorem above ($\nabla_{A^T} f(D) = B^T A^T + BA^T$) and substitute as follows,
 
 $$
 \begin{align}
