@@ -14,6 +14,8 @@ Welcome to my portfolio site and blog! I hope you'll enjoy your stay.
 
 ### Projects
 
+**[Roomorama](http://roomorama.com)** - a booking platform for vacation rentals worldwide.
+
 **[BeautyMNL](http://beautymnl.com)** - the best and biggest beauty e-commerce site in the Philippines.
 
 **[Deal Grocer](http://dealgrocer.com)** - a popular and high-end premium deals site in the Philippines.
