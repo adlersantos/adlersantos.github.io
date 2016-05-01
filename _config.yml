@@ -5,7 +5,7 @@ meta_description: "Adler Santos, Data Scientist and Software Engineer"
 aboutPage: true
 
 markdown: kramdown
-highlighter: pygments
+highlighter: rouge
 
 paginate: 10
 baseurl: /
