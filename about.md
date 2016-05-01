@@ -22,9 +22,9 @@ Welcome to my portfolio site and blog! I hope you'll enjoy your stay.
 
 **Vera** - An internal data analytics dashboard that provides an overview and forecasting of KPIs.
 
-**Malone** - In the NBA, they say "the mailman always delivers". Malone is a custom-built email service platform for sending personalized marketing emails to Deal Grocer customers.
+**Malone** - In the NBA, they say "the mailman always delivers". Malone is an internal, custom-built email service platform for sending personalized marketing emails to Deal Grocer customers.
 
-**Rico** - A recommendation engine API built to deliver personalized content for Deal Grocer and BeautyMNL using collaborative filters.
+**Rico** - An internal recommendation engine API built to deliver personalized content for Deal Grocer and BeautyMNL using collaborative filters.
 
 **[SoHelpful](http://sohelpful.me)** - a service where businesses build their brand and reputation by helping others one-on-one.
 
