@@ -14,16 +14,19 @@ My background is in theoretical physics and software engineering.
 
 > I've journeyed from academic research, to growth hacking, to building Rails apps, and to machine learning until I can finally solve tech problems by combining code, data, research, and business sense.
 
+<br />
+
 ### Contact Info
 
 You can reach me through the following channels:
 
-- [LinkedIn](https://sg.linkedin.com/in/adlersantos)
-- [Twitter](https://twitter.com/adlersantos): @adlersantos
-- [Telegram](https://telegram.org/): @adlersantos
-- Email: adlergsantos@gmail.com
+[LinkedIn](https://sg.linkedin.com/in/adlersantos)
 
-Have a great day ahead!
+[Twitter](https://twitter.com/adlersantos): @adlersantos
+
+[Telegram](https://telegram.org/): @adlersantos
+
+Email: adlergsantos@gmail.com
 
 <br />
 
