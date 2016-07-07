@@ -4,9 +4,9 @@ permalink: about/
 profile: true
 ---
 
-I'm a data scientist with the blood of a software engineer.
+I'm a data scientist and a software engineer. Typically, data scientists rely on software engineers to create applications or systems for them so they can start doing data science. I'm someone who doesn't require much assistance from developers when building production-grade data pipelines.
 
-My background is in theoretical physics and growth hacking. I've grown out of the scholarly halls of the academe to solve tech problems by combining code, data, and mathematics.
+My background is in theoretical physics and software engineering. I've journeyed from academic research, to growth hacking, to building Rails apps, and to machine learning until I can finally solve tech problems by combining code, data, research, and business sense.
 
 Welcome to my portfolio site and blog! I hope you'll enjoy your stay.
 
