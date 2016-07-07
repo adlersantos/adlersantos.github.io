@@ -4,11 +4,26 @@ permalink: about/
 profile: true
 ---
 
-I'm a data scientist and a software engineer. Typically, data scientists rely on software engineers to create applications or systems for them so they can start doing data science. I'm someone who doesn't require much assistance from developers when building production-grade data pipelines.
+###
 
-My background is in theoretical physics and software engineering. I've journeyed from academic research, to growth hacking, to building Rails apps, and to machine learning until I can finally solve tech problems by combining code, data, research, and business sense.
+I'm a data scientist and a software engineer. 
 
-Welcome to my portfolio site and blog! I hope you'll enjoy your stay.
+Typically, data scientists rely on software engineers to create applications or systems for them so they can start doing data science. I'm someone who doesn't require much assistance from developers when building production-grade data pipelines.
+
+My background is in theoretical physics and software engineering. 
+
+> I've journeyed from academic research, to growth hacking, to building Rails apps, and to machine learning until I can finally solve tech problems by combining code, data, research, and business sense.
+
+### Contact Info
+
+You can reach me through the following channels:
+
+- [LinkedIn](https://sg.linkedin.com/in/adlersantos)
+- [Twitter](https://twitter.com/adlersantos): @adlersantos
+- [Telegram](https://telegram.org/): @adlersantos
+- Email: adlergsantos@gmail.com
+
+Have a great day ahead!
 
 <br />
 
