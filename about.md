@@ -4,8 +4,6 @@ permalink: about/
 profile: true
 ---
 
-###
-
 I'm a data scientist and a software engineer. 
 
 Typically, data scientists rely on software engineers to create applications or systems for them so they can start doing data science. I'm someone who doesn't require much assistance from developers when building production-grade data pipelines.
