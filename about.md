@@ -4,15 +4,35 @@ permalink: about/
 profile: true
 ---
 
-I'm a data scientist with the blood of a software engineer.
+I'm a data scientist and a software engineer. 
 
-My background is in theoretical physics and growth hacking. I've grown out of the scholarly halls of the academe to solve tech problems by combining code, data, and mathematics.
+Typically, data scientists rely on software engineers to create applications or systems for them so they can start doing data science. I'm someone who doesn't require much assistance from developers when building production-grade data pipelines.
 
-Welcome to my portfolio site and blog! I hope you'll enjoy your stay.
+My background is in theoretical physics and software engineering. 
+
+> I've journeyed from academic research, to growth hacking, to building Rails apps, and to machine learning until I can finally solve tech problems by combining code, data, research, and business sense.
+
+I appreciate your visit. Have a great day ahead! :)
+
+<br />
+
+### Contact Info
+
+You can reach me through the following channels:
+
+[LinkedIn](https://sg.linkedin.com/in/adlersantos)
+
+[Twitter](https://twitter.com/adlersantos) - `@adlersantos`
+
+[Telegram](https://telegram.org/) - `@adlersantos`
+
+Email: `adlergsantos@gmail.com`
 
 <br />
 
 ### Projects
+
+**[Roomorama](http://roomorama.com)** - a booking platform for vacation rentals worldwide.
 
 **[BeautyMNL](http://beautymnl.com)** - the best and biggest beauty e-commerce site in the Philippines.
 
@@ -20,9 +40,9 @@ Welcome to my portfolio site and blog! I hope you'll enjoy your stay.
 
 **Vera** - An internal data analytics dashboard that provides an overview and forecasting of KPIs.
 
-**Malone** - In the NBA, they say "the mailman always delivers". Malone is a custom-built email service platform for sending personalized marketing emails to Deal Grocer customers.
+**Malone** - In the NBA, they say "the mailman always delivers". Malone is an internal, custom-built email service platform for sending personalized marketing emails to Deal Grocer customers.
 
-**Rico** - A recommendation engine API built to deliver personalized content for Deal Grocer and BeautyMNL using collaborative filters.
+**Rico** - An internal recommendation engine API built to deliver personalized content for Deal Grocer and BeautyMNL using collaborative filters.
 
 **[SoHelpful](http://sohelpful.me)** - a service where businesses build their brand and reputation by helping others one-on-one.
 
