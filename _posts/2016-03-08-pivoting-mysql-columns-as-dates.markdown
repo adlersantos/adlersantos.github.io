@@ -1,5 +1,5 @@
 ---
-title:  "Pivoting on MySQL with Columns as Ordered Dates in a Week"
+title:  "Using MySQL: Columns as Ordered Week Dates"
 date:   2016-03-08
 ---
 
