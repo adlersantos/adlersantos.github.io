@@ -56,7 +56,7 @@ is minimized.
 
 You can find derivations of the normal equation on the internet, but most of them include a lot of handwaving and skip seemingly trivial, but actually tedious and crucial steps. I will derive it in this article.
 
-# Minimizing $J(\vec{\theta})$ Using Vector Calculus
+## Minimizing $J(\vec{\theta})$ Using Vector Calculus
 
 Recall back in calculus that to minimize a function, you simply take its derivative and set it to zero. We will do the same for the cost function. But first, we need to borrow some concepts from vector calculus.
 
@@ -70,7 +70,7 @@ $$
 
 We will use this equation to derive the normal equation.
 
-# Some Useful Theorems
+## Some Useful Theorems
 
 In order to proceed with the derivation, we're gonna need the help of some theorems. You can find these as well in any proper vector calculus textbook. Let $A$, $B$, and $C$ be matrices. The two theorems we will use are the following:
 
@@ -112,7 +112,7 @@ $$
 
 We can finally proceed with our derivation.
 
-# All Together Now
+## All Together Now
 
 Let's take the gradient of $J$ with respect to $\theta$
 

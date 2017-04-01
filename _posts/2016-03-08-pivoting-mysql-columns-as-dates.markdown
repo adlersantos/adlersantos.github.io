@@ -1,5 +1,5 @@
 ---
-title:  "Using MySQL: Columns as Ordered Week Dates"
+title:  "MySQL: Columns as Ordered Week Dates"
 date:   2016-03-08
 ---
 

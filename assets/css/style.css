@@ -52,7 +52,6 @@ html, body { height: 100%; }
 
 body {
 	font:16px/1 "Helvetica Neue", Helvetica, Arial, sans-serif;
-	color: #666;
 	-webkit-font-smoothing: antialiased;
 	text-rendering: optimizeLegibility;
 }
@@ -229,13 +228,15 @@ em, i { font-style: italic; }
 .post h1 {
 	margin-bottom: 20px;
 	color: #222;
-	font: 300 32px/1.4em "Helvetica Neue", Helvetica,Arial,sans-serif;
+	font: 300 28px/1.4em "Helvetica Neue", Helvetica,Arial,sans-serif;
+	font-weight: bold;
 }
 
 .post h2 {
-	margin-bottom: 40px;
-	  font: 300 24px/1.5 "Helvetica Neue",Helvetica,Arial,sans-serif;
+	margin-bottom: 18px;
+	  font: 300 20px/1.5 "Helvetica Neue",Helvetica,Arial,sans-serif;
 	  color: #111;
+	  font-weight: bold;
 }
 
 
@@ -243,7 +244,7 @@ em, i { font-style: italic; }
 	/*font: italic 22px/1.3em Georgia,serif;*/
 	font: normal 13px/1.5em "Helvetica Neue",Helvetica,Arial,sans-serif;
 	margin: -5px 0 40px 0;
-	color: #b2b9be;
+	color: #666;
 	  font-size: 13px;
 	  text-transform: uppercase;
 	  letter-spacing: 2px;

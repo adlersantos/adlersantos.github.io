@@ -7,7 +7,7 @@ So you've deployed tons of split-tests (more popularly called "A/B testing") acr
 
 What do you do when the differences are not so significant? When it's not obvious whether or not a split-test scenario has a winner, statistics will save the day! I'll show you how in this article.
 
-# Three Hypothetical Scenarios
+## Three Hypothetical Scenarios
 
 Suppose you have a pair of promos (Promo A and Promo B) for new signups, and you've done a split-testing experiment to determine which one converts visitors to signups better. Let's assume three scenarios below, where every promo has an equal chance of getting shown. Let's set the number of people who viewed each promo to 1,000 `[1]`.
 
@@ -31,7 +31,7 @@ Suppose you have a pair of promos (Promo A and Promo B) for new signups, and you
 <br />
 Because 200 signups is dramatically bigger than 15 signups, we can be pretty confident to declare Promo A as the winner in Scenario X. Let's skip that for now and turn our attention to Scenarios Y and Z, where the numbers are pretty close to each other.
 
-# Hypothesis Testing using Statistics
+## Hypothesis Testing using Statistics
 
 For Scenarios Y and Z, it seems that Promo A performs only slightly better than Promo B. How can we determine if the difference is significant enough for us to declare Promo A as the winner?
 
@@ -58,7 +58,7 @@ $$
 \end{align}
 $$
 
-**The Null Hypothesis**
+### The Null Hypothesis
 
 In statistics, there's a concept called the _null hypothesis_. I found it useful to think of the null hypothesis as a statement that's assumed true until proven otherwise.
 
@@ -66,7 +66,7 @@ In statistics, there's a concept called the _null hypothesis_. I found it useful
 
 In our case, the null hypothesis for every split-testing scenario is to assume that there is no winner, i.e. Promo A and Promo B are equally effective. Keep this in mind as we go along. Now let's move on to discuss two more statistical variables: the _z-statistic_ and the _two-tailed p-value_.
 
-**The z-statistic and Cumulative Distribution Function**
+### The $z$-statistic and Cumulative Distribution Function
 
 For each scenario above, we need to calculate a variable called the z-statistic. It can be computed as follows:
 
@@ -92,7 +92,7 @@ $$
 
 The CDF essentially gives the normal probability above or below a certain value of $z$.
 
-# The Two-Tailed p-value: Is There a Winner?
+## The Two-Tailed p-value: Is There a Winner?
 
 Let's go back to the problem of declaring a winner for any of the split-testing scenarios Y and Z. The z-statistic, manifested as a probability, is the probability that the "no winner" hypothesis is true. This is in the Bayesian sense, where the probability is a _degree-of-belief_ that there is no winner given an outcome from the experiment. We can compute this by simply multiplying the CDF by two. This is the definition of the _two-tailed p-value_, which we define as $p'$ since it's a probability value `[3]`:
 
@@ -132,7 +132,7 @@ In summary, a two-tailed p-value that's less than 0.05 allows us to declare a wi
 
 [For some math/physics textbook pun, I leave it as an exercise for the reader to show that Scenario X (200 signups vs 15 signups) has a two-tailed p-value that's almost zero, i.e. there is almost zero probability that the null hypothesis is true, which implies that Promo A is a clear winner.]
 
-# Two-tailed p-value in Ruby and Python
+## Two-tailed p-value in Ruby and Python
 
 For your own use, I've coded $p'$ in Ruby and Python. All you need are the number of people who converted and the number of impressions for each of the two variations in the experiment (labeled A and B below).
 
@@ -177,7 +177,7 @@ def two_tailed_p_value(n_A, N_A, n_B, N_B, mean=0, std=1):
 end
 {% endhighlight %}
 
-### Footnotes
+#### Footnotes
 
 **`[1]`** To make the statistical analysis work, it is required that the "promo viewed" events must be independent. Every person visiting the site must only see one type of promo. There are rare cases when the same person gets to view the two promos, say by using different browsers, devices, or locations. We assume these cases to have a negligible effect on our analysis.
 
