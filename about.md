@@ -6,31 +6,21 @@ profile: true
 
 I'm a data scientist and a software engineer. 
 
-Typically, data scientists rely on software engineers to create applications or systems for them so they can start doing data science. I'm someone who doesn't require much assistance from developers when building production-grade data pipelines.
+Typically, data scientists rely on software engineers to create applications or systems for them so they can start doing data science. I'm self-reliant, which means I collaborate effectively with the tech team to build and deploy data applications in production.
 
-My background is in theoretical physics and software engineering. 
+My educational background is in theoretical and computational physics.
 
-> I've journeyed from academic research, to growth hacking, to building Rails apps, and to machine learning until I can finally solve tech problems by combining code, data, research, and business sense.
+I appreciate your visit. Have a great day! :)
 
-I appreciate your visit. Have a great day ahead! :)
+## Contact Info
 
-<br />
+- [LinkedIn](https://sg.linkedin.com/in/adlersantos)
+- [Twitter](https://twitter.com/adlersantos)
+- [Telegram](https://telegram.org/)
+- [Email](mailto:adler.g.santos@gmail.com)
 
-### Contact Info
-
-You can reach me through the following channels:
-
-[LinkedIn](https://sg.linkedin.com/in/adlersantos)
-
-[Twitter](https://twitter.com/adlersantos) - `@adlersantos`
-
-[Telegram](https://telegram.org/) - `@adlersantos`
-
-Email: `adlergsantos@gmail.com`
-
-<br />
-
-### Projects
+<br>
+## Projects
 
 **[Roomorama](http://roomorama.com)** - a booking platform for vacation rentals worldwide.
 
@@ -54,33 +44,20 @@ Email: `adlergsantos@gmail.com`
 
 **[Collabspot](collabspot.com)** - a Google Chrome extension that integrates 37signals Highrise, SugarCRM, and Salesforce with Gmail.
 
-<br />
+## Publications
 
-### Education
+[Polarization ellipse and Stokes parameters in geometric algebra](http://www.opticsinfobase.org/josaa/abstract.cfm?uri=josaa-29-1-89) _J. Opt. Soc. Am., Vol. 29, Issue 1, pp. 89-98 (2012)_
+
+Peer Review: [Partial isometries, unitary operators and complementary operators in polarization optics](https://www.opticsinfobase.org/ol/abstract.cfm?URI=ol-39-10-2860) _Optics Letters, Vol. 39, Issue 10, pp. 2860-2863 (2014)_
+
+## Education
 
 - **Master of Science in Physics**, Ateneo de Manila University (2011)
-
 - **Bachelor of Science in Physics**, Ateneo de Manila University (2008)
 
-<br />
+<br>
 
-### Publications
-
-[Polarization ellipse and Stokes parameters in geometric algebra](http://www.opticsinfobase.org/josaa/abstract.cfm?uri=josaa-29-1-89) - J. Opt. Soc. Am., Vol. 29, Issue 1, pp. 89-98 (2012)
-
-I reviewed a paper for Optics Letters:
-
-[Partial isometries, unitary operators and complementary operators in polarization optics](https://www.opticsinfobase.org/ol/abstract.cfm?URI=ol-39-10-2860) - Optics Letters, Vol. 39, Issue 10, pp. 2860-2863 (2014)
-
-<br />
-
-### Recognitions
-
-Winner - [Google Apps Developer Challenge 2012](https://github.com/adlersantos/adlersantos.github.io.git)
-
-<br />
-
-Still bored? Come play some Tic-tac-toe. (_Warning: It's unbeatable_)
+Come play some Tic-tac-toe. (_Warning: It's unbeatable_)
 
 {% include tictactoe.html %}
 {% include footer.html %}

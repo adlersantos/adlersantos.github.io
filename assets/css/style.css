@@ -182,7 +182,7 @@ a,
 }
 
 ul 	{ margin:0; padding:0; }
-li	{ list-style-type:circle; list-style-position:inside; }
+li	{ list-style-position:inside; padding-top:4px; padding-bottom:4px; }
 
 /* Line Height */
 #post-body, p { line-height:1.7; }
@@ -216,8 +216,10 @@ em, i { font-style: italic; }
 }
 
 .home h2 {
-	font: italic 19px/1.3em Georgia,serif;
-	color: #bbb;
+  font: 300 20px/1.5 "Helvetica Neue",Helvetica,Arial,sans-serif;
+	margin-bottom: 18px;
+  font-weight: bold;
+	color: #000;
 }
 
 .post header {
