@@ -32,10 +32,6 @@ It might seem an easy task to determine the most informative attribute in the da
 
 Entropy is a term used in statistical physics as a measure of how disordered a system is. Machine learninGs use of entropy isn't far from this concept of disorderedness. In ML, a set of instances is said to be disordered when there's a considerable mix of target classes that the instances belong to. This means that the more mixed the segment is with respect to the classifications (i.e., target variables), the higher the entropy.
 
-Here's a visual breakdown of how well each feature classifies the dataset into target classes.
-
-
-
 The entropy $S$ of a set with a binary target with values $G$ and $H$ is defined as
 
 $$
