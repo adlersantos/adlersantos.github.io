@@ -159,7 +159,7 @@ We may begin to wonder about regression problems, where the target variable is a
 
 Information gain still makes sense here. But it must represent a numerical feature's "closeness" to the target variable. Instead of using entropy as a measure of disorder (or order) with regards to the categorical target values, we use _variance_ as a measure of closeness to the target value.
 
-A feature will have a high variance if its values do not behave as the target values behave: when the feature increases (decreases) in value, the target must also increase (decrease) in value. In other words, the counterpart of information gain in regression problems is _correlation_.
+A feature will have a high variance if its values do not behave as the target values behave. Low variance occurs when the feature increases (decreases) in value, the target also increases (decrease) in value. In other words, the counterpart of information gain in regression problems is _correlation_.
 
 Here's a table outlining which quantities are analogous to each other between classification and regression problems.
 
