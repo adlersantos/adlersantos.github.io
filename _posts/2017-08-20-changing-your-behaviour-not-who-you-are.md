@@ -1,5 +1,5 @@
 ---
-title:  On Change vs. Being "Who You Are"
+title:  On Change vs. Being Who You Are
 date:   2017-08-20
 ---
 
