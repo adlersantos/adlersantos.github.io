@@ -20,7 +20,7 @@ author:         'Adler Santos'
 authorTwitter:  'adlersantos'
 
 permalink:       /:title/
-gems: [jekyll-paginate]
+plugins: [jekyll-paginate]
 
 defaults:
     -
