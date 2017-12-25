@@ -1,11 +1,12 @@
 ---
+layout: post
 title:  On Change vs. Being Who You Are
 date:   2017-08-20
 ---
 
 One of the things I've more understood lately was the concept of adapting how I behave to the context I was in. I'm aware that I've been doing this, but I was also constantly questioning it.
 
-I've been wondering if I might be betraying myself, or perhaps this is psychologically unhealthy in the long term, to act against my familiar behavioural inclinations.
+I've been wondering if I might be betraying myself, or perhaps this is psychologically unhealthy in the long term, to act against my familiar behavioural inclinations. <!--more-->
 
 Then I came upon questioning the assumption that behaviour is always associated to who we truly are. And it turns out not to be true.
 

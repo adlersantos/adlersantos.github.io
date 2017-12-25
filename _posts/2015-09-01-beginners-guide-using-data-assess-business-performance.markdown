@@ -1,9 +1,10 @@
 ---
+layout: post
 title:  "A Beginner's Guide on Using Data to Assess Business Performance"
 date:   2015-09-01
 ---
 
-Running an online business that's growing slower than projected is never an ideal scenario. What can tremendously help diagnose the problem is to have data and know how to gain insights from it. It is only through the collection and analysis of data where you can free yourself from guesswork, start validating assumptions, and gain insights on how you should be operating your business.
+Running an online business that's growing slower than projected is never an ideal scenario. What can tremendously help diagnose the problem is to have data and know how to gain insights from it. It is only through the collection and analysis of data where you can free yourself from guesswork, start validating assumptions, and gain insights on how you should be operating your business. <!--more-->
 
 But there's a caveat: data that wasn't measured is data that's lost forever `[1]`. Things will seem hopeless if you haven't been collecting data all the while. It's not too late. You can still turn outcomes in your favor by knowing exactly what data you need to collect moving forward. Read on and I'll show you how.
 
