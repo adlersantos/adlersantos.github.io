@@ -1,31 +1,814 @@
----
-layout: null
-nav_exclude: true
----
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>{{ site.title | xml_escape }}</title>
-    <description>{{ site.description | xml_escape }}</description>
-    <link>{{ site.url }}{{ site.baseurl }}/</link>
-    <atom:link href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" rel="self" type="application/rss+xml"/>
-    <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
-    <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
-    <generator>Jekyll v{{ jekyll.version }}</generator>
-    {% for post in site.posts limit:10 %}
+    <title>Adler Santos</title>
+    <description>Data Scientist and Software Engineer</description>
+    <link>http://adlersantos.com/</link>
+    <atom:link href="http://adlersantos.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Mon, 25 Dec 2017 03:54:39 -0500</pubDate>
+    <lastBuildDate>Mon, 25 Dec 2017 03:54:39 -0500</lastBuildDate>
+    <generator>Jekyll v2.5.3</generator>
+    
       <item>
-        <title>{{ post.title | xml_escape }}</title>
-        <description>{{ post.content | xml_escape }}</description>
-        <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
-        <link>{{ post.url | prepend: site.baseurl | prepend: site.url }}</link>
-        <guid isPermaLink="true">{{ post.url | prepend: site.baseurl | prepend: site.url }}</guid>
-        {% for tag in post.tags %}
-        <category>{{ tag | xml_escape }}</category>
-        {% endfor %}
-        {% for cat in post.categories %}
-        <category>{{ cat | xml_escape }}</category>
-        {% endfor %}
+        <title>On Change vs. Being Who You Are</title>
+        <description>&lt;p&gt;One of the things I’ve more understood lately was the concept of adapting how I behave to the context I was in. I’m aware that I’ve been doing this, but I was also constantly questioning it.&lt;/p&gt;
+
+&lt;p&gt;I’ve been wondering if I might be betraying myself, or perhaps this is psychologically unhealthy in the long term, to act against my familiar behavioural inclinations. &lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;Then I came upon questioning the assumption that behaviour is always associated to who we truly are. And it turns out not to be true.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;em&gt;Changing how you behave doesn’t mean changing who you are.&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Here are some of the notable differences in my behaviour:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The gentle, sweet, nerdy person at home&lt;/li&gt;
+  &lt;li&gt;The perpetual learner who always strives for excellence at work&lt;/li&gt;
+  &lt;li&gt;The happy, confident guy in malls, cafes, and restos&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;
+Step out of your bubble once in a while, for your own good and self-improvement.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 20 Aug 2017 00:00:00 -0400</pubDate>
+        <link>http://adlersantos.com/articles/17/changing-your-behaviour-not-who-you-are</link>
+        <guid isPermaLink="true">http://adlersantos.com/articles/17/changing-your-behaviour-not-who-you-are</guid>
+        
+        
       </item>
-    {% endfor %}
+    
+      <item>
+        <title>Machine Learning: Entropy and Classification</title>
+        <description>&lt;h2 id=&quot;a-simple-classification-example&quot;&gt;A Simple Classification Example&lt;/h2&gt;
+
+&lt;p&gt;Let’s say we have a dataset with categorical features &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;P&lt;/script&gt;&lt;/span&gt;, &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;Q&lt;/script&gt;&lt;/span&gt;, &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;R&lt;/script&gt;&lt;/span&gt;, and a binary target variable &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;Z&lt;/script&gt;&lt;/span&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;label for=&quot;&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: right&quot;&gt;id&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Feature &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;P&lt;/script&gt;&lt;/span&gt;&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Feature &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;Q&lt;/script&gt;&lt;/span&gt;&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Feature &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;R&lt;/script&gt;&lt;/span&gt;&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Target Variable &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;Z&lt;/script&gt;&lt;/span&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;1&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;a&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;c&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;e&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;G&lt;/script&gt;&lt;/span&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;2&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;b&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;d&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;e&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;G&lt;/script&gt;&lt;/span&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;3&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;b&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;d&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;f&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;H&lt;/script&gt;&lt;/span&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;4&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;a&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;d&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;e&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;G&lt;/script&gt;&lt;/span&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;5&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;a&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;c&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;f&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;H&lt;/script&gt;&lt;/span&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;6&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;b&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;d&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;f&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;H&lt;/script&gt;&lt;/span&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;The goal is to find the feature that best predicts the value of &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;Z&lt;/script&gt;&lt;/span&gt;. &lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;After a bit of close inspection, we see that Feature &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;R&lt;/script&gt;&lt;/span&gt; will have the highest “predictive power” in determining &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;Z&lt;/script&gt;&lt;/span&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;All instances with Feature &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;R&lt;/script&gt;&lt;/span&gt; equal to &lt;code&gt;e&lt;/code&gt; (ids 1, 2, 4, 6) belong to class &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;G&lt;/script&gt;&lt;/span&gt;.&lt;/li&gt;
+  &lt;li&gt;All instances with Feature &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;R&lt;/script&gt;&lt;/span&gt; equal to &lt;code&gt;f&lt;/code&gt; (ids 3, 5) belong to class &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;H&lt;/script&gt;&lt;/span&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;
+The other features &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;P&lt;/script&gt;&lt;/span&gt; and &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;Q&lt;/script&gt;&lt;/span&gt; are not as accurate as &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;R&lt;/script&gt;&lt;/span&gt; in predicting the target. We call Feature &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;R&lt;/script&gt;&lt;/span&gt; as the &lt;em&gt;most informative attribute&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;entropy&quot;&gt;Entropy&lt;/h2&gt;
+
+&lt;p&gt;It might seem an easy task to determine the most informative attribute in the dataset above by hand. But for larger, more complex datasets, it’s impractical to count and match all the features with target classes for all samples. We need a way to measure the informativeness of a feature, that is, how it effectively classifies the dataset. Fortunately, we have &lt;em&gt;entropy&lt;/em&gt; to help us do that.&lt;/p&gt;
+
+&lt;p&gt;Entropy is a term used in statistical physics as a measure of how disordered a system is. Machine learning’s use of entropy isn’t far from this concept of disorderedness. In ML, a set of instances is said to be disordered when there’s a considerable mix of target classes that the instances belong to. This means that the more mixed the segment is with respect to the classifications (i.e., target variables), the higher the entropy.&lt;/p&gt;
+
+&lt;p&gt;The entropy &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;S&lt;/script&gt;&lt;/span&gt; of a set with a binary target with values &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;G&lt;/script&gt;&lt;/span&gt; and &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;H&lt;/script&gt;&lt;/span&gt; is defined as&lt;/p&gt;
+
+&lt;div class=&quot;mathblock&quot;&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+S = -\sum_{i \in \{G,H\}} p_i \log(p_i)
+&lt;/script&gt;&lt;/div&gt;
+
+&lt;p&gt;where &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;p_i&lt;/script&gt;&lt;/span&gt; is the proportion of the ith target variable in the set. Entropy always ranges between 0 (minimum disorder) and 1 (maximum disorder).&lt;/p&gt;
+
+&lt;p&gt;As an exercise, let’s calculate &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;S&lt;/script&gt;&lt;/span&gt; for the whole dataset:&lt;/p&gt;
+
+&lt;div class=&quot;mathblock&quot;&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{align}
+S &amp;= -\sum_{i \in \{G,H\}} p_i \ \log(p_i) \\
+&amp;= -p_{G} \log(p_{G}) - p_{H} \log(p_{H}) \\
+&amp;= -(0.5)\log(0.5) - (0.5)\log(0.5) \\
+&amp;= 1
+\end{align}
+&lt;/script&gt;&lt;/div&gt;
+
+&lt;p&gt;This tells us that a set whose samples are equally divided among the target’s values is maximally disordered.&lt;/p&gt;
+
+&lt;p&gt;If we have two or more target classes, the equation above generalizes as follows:&lt;/p&gt;
+
+&lt;div class=&quot;mathblock&quot;&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+S = -\sum_{i \in V_t} p_i \log(p_i)
+&lt;/script&gt;&lt;/div&gt;
+
+&lt;p&gt;where &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;V_t&lt;/script&gt;&lt;/span&gt; is the set of unique values of the target variable.&lt;/p&gt;
+
+&lt;p&gt;It’s easy to see that the number of elements in &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;V_t&lt;/script&gt;&lt;/span&gt; is equal to the number of terms in the summation.&lt;/p&gt;
+
+&lt;p&gt;Classifying datasets with categorical attributes is all about segmenting data in a way that the resulting subsets have lower entropy than the whole dataset, all without penalizing the model’s performance when it’s time to classify unknown data (i.e., prevent the model from overfitting).&lt;/p&gt;
+
+&lt;h2 id=&quot;information-gain&quot;&gt;Information Gain&lt;/h2&gt;
+
+&lt;p&gt;The informativeness of a feature can be measured using the concept of information gain, which can be defined using entropy. Consider a dataset which we call the &lt;em&gt;parent&lt;/em&gt;, and we’d like to know how well a certain feature classifies the elements contained in the parent.&lt;/p&gt;
+
+&lt;p&gt;We define the information gain &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;I_G&lt;/script&gt;&lt;/span&gt; of a feature &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;G&lt;/script&gt;&lt;/span&gt; on some parent dataset as&lt;/p&gt;
+
+&lt;div class=&quot;mathblock&quot;&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+I_G = S_p - \sum_{j \in V_f} P_j S_j
+&lt;/script&gt;&lt;/div&gt;
+
+&lt;p&gt;where &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;V_G&lt;/script&gt;&lt;/span&gt; is the set of unique values of feature &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;G&lt;/script&gt;&lt;/span&gt;, &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;S_p&lt;/script&gt;&lt;/span&gt; is the entropy of the parent set, &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;P_j&lt;/script&gt;&lt;/span&gt; is the proportion of instances belonging to the &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;j&lt;/script&gt;&lt;/span&gt;th value of the considered feature, and &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;S_j&lt;/script&gt;&lt;/span&gt; is the entropy of the set whose elements have the &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;j&lt;/script&gt;&lt;/span&gt;th value of the feature.&lt;/p&gt;
+
+&lt;p&gt;Now let’s apply the definition of information gain &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;I&lt;/script&gt;&lt;/span&gt; for every feature in our dataset above.&lt;/p&gt;
+
+&lt;h3 id=&quot;information-gain-span8203script-typemathtexipscriptspan&quot;&gt;Information Gain &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;I_P&lt;/script&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;The information gain for Feature &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;P&lt;/script&gt;&lt;/span&gt;, whose values are the set &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;{a, b}&lt;/script&gt;&lt;/span&gt;, is&lt;/p&gt;
+
+&lt;div class=&quot;mathblock&quot;&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+I_P = S_p - \sum_{j \in \{a, b\}} P_j S_j
+&lt;/script&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;P_a&lt;/script&gt;&lt;/span&gt; and &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;P_b&lt;/script&gt;&lt;/span&gt; in the summation are the proportion of instances where Feature &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;Q&lt;/script&gt;&lt;/span&gt; has values &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;a&lt;/script&gt;&lt;/span&gt; and &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;b&lt;/script&gt;&lt;/span&gt;, respectively.&lt;/p&gt;
+
+&lt;div class=&quot;mathblock&quot;&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+P_a = \frac{3}{6} = 0.5 \\
+P_b = \frac{3}{6} = 0.5
+&lt;/script&gt;&lt;/div&gt;
+
+&lt;p&gt;Now &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;S_a&lt;/script&gt;&lt;/span&gt; and &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;S_b&lt;/script&gt;&lt;/span&gt; are the entropies of the subsets whose instances have Feature &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;Q&lt;/script&gt;&lt;/span&gt; equal to &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;a&lt;/script&gt;&lt;/span&gt; and &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;b&lt;/script&gt;&lt;/span&gt;, respectively.&lt;/p&gt;
+
+&lt;div class=&quot;mathblock&quot;&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{align}
+S_a &amp;= -\sum_{i \in \{G,H\}} p_{a,i} \ \log(p_{a,i}) \\
+&amp;= -p_{G} \log(p_{G}) - p_{H} \log(p_{H}) \\
+&amp;= -\frac{2}{3} \log\left(\frac{2}{3}\right) - \frac{1}{3} \log \left(\frac{1}{3}\right) \\
+&amp;= 0.918 \\
+\\
+S_b &amp;= -\sum_{i \in \{G,H\}} p_{b,i} \ \log(p_{b,i}) \\
+&amp;= -p_{G} \log(p_{G}) - p_{H} \log(p_{H}) \\
+&amp;= -\frac{1}{3} \log\left(\frac{1}{3}\right) - \frac{2}{3} \log \left(\frac{2}{3}\right) \\
+&amp;= 0.918
+\end{align}
+&lt;/script&gt;&lt;/div&gt;
+
+&lt;p&gt;Thus, the information gain for Feature &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;P&lt;/script&gt;&lt;/span&gt; is&lt;/p&gt;
+
+&lt;div class=&quot;mathblock&quot;&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{align}
+I_P &amp;= 1 - [(0.5)(0.918) + (0.5)(0.918)] \\
+&amp;= 0.541
+\end{align}
+&lt;/script&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;information-gain-span8203script-typemathtexiqscriptspan&quot;&gt;Information Gain &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;I_Q&lt;/script&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;Given the following values,&lt;/p&gt;
+
+&lt;div class=&quot;mathblock&quot;&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{align}
+P_c &amp;= \frac{2}{6} \\
+P_d &amp;= \frac{4}{6} \\
+S_c &amp;= 1 \\
+S_d &amp;= 1 
+\end{align}
+&lt;/script&gt;&lt;/div&gt;
+
+&lt;p&gt;we see that the value of &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;I_Q&lt;/script&gt;&lt;/span&gt; is zero.&lt;/p&gt;
+
+&lt;p&gt;This means that there is no information gained when using Feature &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;Q&lt;/script&gt;&lt;/span&gt; to classify the dataset.&lt;/p&gt;
+
+&lt;h3 id=&quot;information-gain-span8203script-typemathtexirscriptspan&quot;&gt;Information Gain &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;I_R&lt;/script&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;Given the following values,&lt;/p&gt;
+
+&lt;div class=&quot;mathblock&quot;&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{align}
+P_e &amp;= \frac{3}{6} \\
+P_f &amp;= \frac{3}{6} \\
+S_e &amp;= 0 \\
+S_f &amp;= 0
+\end{align}
+&lt;/script&gt;&lt;/div&gt;
+
+&lt;p&gt;we see that the value of &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;I_R&lt;/script&gt;&lt;/span&gt; is 1, the highest information gain among all the features.&lt;/p&gt;
+
+&lt;p&gt;Using the definitions and tools outlined above, we can now formally state why Feature &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;R&lt;/script&gt;&lt;/span&gt; is the most informative attribute. It’s because it has the highest information gain among all the features in the dataset.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-about-numeric-features&quot;&gt;What about numeric features?&lt;/h2&gt;
+
+&lt;p&gt;We may begin to wonder about regression problems, where the target variable is a numeric one instead of a categorical one. How do we calculate for the most informative attribute in this case?&lt;/p&gt;
+
+&lt;p&gt;Information gain still makes sense here. But it must represent a numerical feature’s “closeness” to the target variable. Instead of using entropy as a measure of disorder (or order) with regards to the categorical target values, we use &lt;em&gt;variance&lt;/em&gt; as a measure of closeness to the target value.&lt;/p&gt;
+
+&lt;p&gt;A feature will have a high variance if its values do not behave as the target values behave. Low variance occurs when the feature increases (decreases) in value, the target also increases (decrease) in value. In other words, the counterpart of information gain in regression problems is &lt;em&gt;correlation&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Here’s a table outlining which quantities are analogous to each other between classification and regression problems.&lt;/p&gt;
+
+&lt;p&gt;&lt;label for=&quot;&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt; &lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Measure of Orderness&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Measure of Informativeness&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Classification&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Entropy&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Information Gain&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Regression&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Variance&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Correlation&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Hope this was insightful! &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;_\square&lt;/script&gt;&lt;/span&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sun, 02 Apr 2017 00:00:00 -0400</pubDate>
+        <link>http://adlersantos.com/articles/17/machine-learning-entropy-and-classification</link>
+        <guid isPermaLink="true">http://adlersantos.com/articles/17/machine-learning-entropy-and-classification</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>MySQL: Columns as Ordered Week Dates</title>
+        <description>&lt;p&gt;Let’s say you have data containing some metrics and their values across an ordered set of dates in a week. Since most screens are longer horizontally than vertically, it’s sometimes better to present data where one metric lies in a row and the dates lie in columns, rather than the usual way around.&lt;/p&gt;
+
+&lt;p&gt;The usual way we show tables is like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;label for=&quot;&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;date&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Visitors&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Orders&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Revenue&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Metric4&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;etc.&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;2016-02-28&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;1423&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;19&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;900&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;…&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;…&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;2016-02-29&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;1534&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;38&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;2037&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;…&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;…&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;2016-03-01&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;2645&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;57&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;5612&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;…&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;…&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;…&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;…&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;…&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;…&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;…&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;…&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Because most screens are in landscape mode and because we read from left to right, there are times when it makes sense to pivot the table as follows:&lt;/p&gt;
+
+&lt;p&gt;&lt;label for=&quot;&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;metric&lt;/th&gt;
+      &lt;th&gt;2016-02-28&lt;/th&gt;
+      &lt;th&gt;2016-02-29&lt;/th&gt;
+      &lt;th&gt;2016-03-01&lt;/th&gt;
+      &lt;th&gt;…&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Visitors&lt;/td&gt;
+      &lt;td&gt;1423&lt;/td&gt;
+      &lt;td&gt;1534&lt;/td&gt;
+      &lt;td&gt;2645&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Orders&lt;/td&gt;
+      &lt;td&gt;19&lt;/td&gt;
+      &lt;td&gt;38&lt;/td&gt;
+      &lt;td&gt;57&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Revenue&lt;/td&gt;
+      &lt;td&gt;900&lt;/td&gt;
+      &lt;td&gt;2037&lt;/td&gt;
+      &lt;td&gt;5612&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Metric4&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Metric5&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;etc.&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;This may not be “tidy data” as defined by Hadley Wickham in his &lt;a href=&quot;https://www.jstatsoft.org/article/view/v059i10&quot;&gt;excellent paper&lt;/a&gt;, but pivoting as such results in easier navigation/scrolling when you have more metrics than dates. &lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;For example, let’s say you have a weekly report with 7 consecutive dates from Monday to Sunday of that week, and 30 metrics. You’ve seen the 7-day trend on the first metric, and would like to see the trend on the 27th metric. All you need to do is scroll down to the 27th metric, and read as you would (from left to right), to see if there’s any trend seen across that week.&lt;/p&gt;
+
+&lt;p&gt;Here’s the full MySQL query for the pivot table above, where the rows are metrics and the columns comprise of an ordered set of dates in a week.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;metric&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;CASE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DAYOFWEEK&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ELSE&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;END&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;CASE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DAYOFWEEK&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ELSE&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;END&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;CASE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DAYOFWEEK&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ELSE&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;END&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;CASE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DAYOFWEEK&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ELSE&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;END&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;CASE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DAYOFWEEK&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ELSE&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;END&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;CASE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DAYOFWEEK&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ELSE&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;END&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;CASE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DAYOFWEEK&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ELSE&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;END&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;metrics&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;metric&amp;#39;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;metrics&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rank&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;rank&amp;#39;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;this_week&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;date&amp;#39;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;CASE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;metrics&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;&amp;#39;&lt;/span&gt;         &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;this_week&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Visitors&amp;#39;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;traffic&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;visitors&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Orders&amp;#39;&lt;/span&gt;   &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;orders&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Revenue&amp;#39;&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;orders&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;revenue&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Metric4&amp;#39;&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;metric4&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Metric5&amp;#39;&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;metric5&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;END&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;value&amp;#39;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;&amp;#39;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;UNION&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ALL&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Visitors&amp;#39;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;UNION&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ALL&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Orders&amp;#39;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;UNION&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ALL&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Revenue&amp;#39;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;UNION&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ALL&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Metric4&amp;#39;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;UNION&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ALL&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Metric5&amp;#39;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;metrics&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;LEFT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;JOIN&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SUBDATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CURDATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DAYOFWEEK&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CURDATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;date&amp;#39;&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;UNION&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ALL&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SUBDATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CURDATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DAYOFWEEK&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CURDATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;date&amp;#39;&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;UNION&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ALL&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SUBDATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CURDATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DAYOFWEEK&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CURDATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;date&amp;#39;&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;UNION&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ALL&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SUBDATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CURDATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DAYOFWEEK&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CURDATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;date&amp;#39;&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;UNION&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ALL&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SUBDATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CURDATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DAYOFWEEK&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CURDATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;date&amp;#39;&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;UNION&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ALL&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SUBDATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CURDATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DAYOFWEEK&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CURDATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;date&amp;#39;&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;UNION&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ALL&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SUBDATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CURDATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DAYOFWEEK&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CURDATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;date&amp;#39;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;this_week&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;on&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;LEFT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;JOIN&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;visitors&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;visitors&amp;#39;&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;some_table1&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt;
+                    &lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;traffic&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;traffic&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;this_week&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;LEFT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;JOIN&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;COUNT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;num&amp;#39;&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;amount_paid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;revenue&amp;#39;&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;some_table2&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt;
+                    &lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;orders&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;orders&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;this_week&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataframe&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;metric&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rank&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The &lt;code&gt;rank&lt;/code&gt; variable (an integer) allows you to show the metrics in a specific order. A metric with a certain rank will be shown before another metric with a higher numbered rank.&lt;/p&gt;
+
+&lt;p&gt;Hope this helps!&lt;/p&gt;
+</description>
+        <pubDate>Tue, 08 Mar 2016 00:00:00 -0500</pubDate>
+        <link>http://adlersantos.com/articles/16/pivoting-mysql-columns-as-dates</link>
+        <guid isPermaLink="true">http://adlersantos.com/articles/16/pivoting-mysql-columns-as-dates</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Deriving the Normal Equation</title>
+        <description>&lt;p&gt;Consider a linear model&lt;/p&gt;
+
+&lt;div class=&quot;mathblock&quot;&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+X\vec{\theta} = \vec{y}
+&lt;/script&gt;&lt;/div&gt;
+
+&lt;p&gt;where&lt;/p&gt;
+
+&lt;div class=&quot;mathblock&quot;&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+X = \left( \begin{array}{ccc}
+x_{1,1} &amp; \dots &amp; x_{1,n} \\
+\vdots &amp; \ddots &amp; \vdots \\
+x_{m,1} &amp; \dots &amp; x_{m,n} \end{array} \right)
+&lt;/script&gt;&lt;/div&gt;
+
+&lt;p&gt;is a matrix of real numbers with &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;m&lt;/script&gt;&lt;/span&gt; as the number of samples (or rows), and &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;n&lt;/script&gt;&lt;/span&gt; is the number of features (or columns),&lt;/p&gt;
+
+&lt;div class=&quot;mathblock&quot;&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\vec{\theta} = \left( \begin{array}{c}
+\theta_1 \\
+\vdots \\
+\theta_m
+\end{array} \right)
+&lt;/script&gt;&lt;/div&gt;
+
+&lt;p&gt;is a matrix (also called a &lt;em&gt;vector&lt;/em&gt;) of coefficients &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;\theta_i&lt;/script&gt;&lt;/span&gt;, and&lt;/p&gt;
+
+&lt;div class=&quot;mathblock&quot;&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\vec{y} = \left( \begin{array}{c}
+y_1 \\
+\vdots \\
+y_m
+\end{array} \right)
+&lt;/script&gt;&lt;/div&gt;
+
+&lt;p&gt;is a matrix of target variables &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;y_i&lt;/script&gt;&lt;/span&gt; per ith sample. &lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;The normal equation is a matrix equation that allows you to solve &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;\vec{\theta}&lt;/script&gt;&lt;/span&gt; above. By doing so, you can construct a linear regression model that allows you to predict the value of the target variable for any new samples. It is given by&lt;/p&gt;
+
+&lt;div class=&quot;mathblock&quot;&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\vec{\theta} = (X^T X)^{-1} X^T \vec{y}.
+&lt;/script&gt;&lt;/div&gt;
+
+&lt;p&gt;The goal of the normal equation is to provide you with &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;\vec{\theta}&lt;/script&gt;&lt;/span&gt; so that the cost function&lt;/p&gt;
+
+&lt;div class=&quot;mathblock&quot;&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+J(\vec{\theta}) = \frac{1}{2}(X\vec{\theta} - \vec{y})^T(X\vec{\theta} - \vec{y})
+&lt;/script&gt;&lt;/div&gt;
+
+&lt;p&gt;is minimized.&lt;/p&gt;
+
+&lt;p&gt;You can find derivations of the normal equation on the internet, but most of them include a lot of handwaving and skip seemingly trivial, but actually tedious and crucial steps. I will derive it in this article.&lt;/p&gt;
+
+&lt;h2 id=&quot;minimizing-span8203script-typemathtexjvecthetascriptspan-using-vector-calculus&quot;&gt;Minimizing &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;J(\vec{\theta})&lt;/script&gt;&lt;/span&gt; Using Vector Calculus&lt;/h2&gt;
+
+&lt;p&gt;Recall back in calculus that to minimize a function, you simply take its derivative and set it to zero. We will do the same for the cost function. But first, we need to borrow some concepts from vector calculus.&lt;/p&gt;
+
+&lt;p&gt;The derivative of a vector is called a gradient, and is denoted by the symbol &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;\nabla&lt;/script&gt;&lt;/span&gt;. We subscript the symbol &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;\nabla&lt;/script&gt;&lt;/span&gt; with some variable to denote that we’re taking a vector’s derivative with respect to that variable. Thus, the derivative with respect to &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;\theta&lt;/script&gt;&lt;/span&gt; is simply &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;\nabla_\theta&lt;/script&gt;&lt;/span&gt;.&lt;/p&gt;
+
+&lt;p&gt;Minimizing the cost function means taking its derivative with respect to &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;\theta&lt;/script&gt;&lt;/span&gt; and setting the result to zero:&lt;/p&gt;
+
+&lt;div class=&quot;mathblock&quot;&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\nabla_\theta J(\vec{\theta}) = 0.
+&lt;/script&gt;&lt;/div&gt;
+
+&lt;p&gt;We will use this equation to derive the normal equation.&lt;/p&gt;
+
+&lt;h2 id=&quot;some-useful-theorems&quot;&gt;Some Useful Theorems&lt;/h2&gt;
+
+&lt;p&gt;In order to proceed with the derivation, we’re gonna need the help of some theorems. You can find these as well in any proper vector calculus textbook. Let &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;A&lt;/script&gt;&lt;/span&gt;, &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;B&lt;/script&gt;&lt;/span&gt;, and &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;C&lt;/script&gt;&lt;/span&gt; be matrices. The two theorems we will use are the following:&lt;/p&gt;
+
+&lt;div class=&quot;mathblock&quot;&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{align}
+\nabla_{A^T} f(A) &amp;= (\nabla_A f(A))^T \\
+\nabla_A \text{tr}(ABA^TC) &amp;= CAB + C^TAB^T
+\end{align}
+&lt;/script&gt;&lt;/div&gt;
+
+&lt;p&gt;where the &lt;em&gt;trace&lt;/em&gt; &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;\text{tr}A&lt;/script&gt;&lt;/span&gt; of a matrix &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;A&lt;/script&gt;&lt;/span&gt; is just the sum of its diagonal elements.&lt;/p&gt;
+
+&lt;p&gt;If we set the matrix &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;C&lt;/script&gt;&lt;/span&gt; as the identity matrix in the second theorem above, we simply get&lt;/p&gt;
+
+&lt;div class=&quot;mathblock&quot;&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\nabla_A \text{tr}(ABA^T) = AB + AB^T.
+&lt;/script&gt;&lt;/div&gt;
+
+&lt;p&gt;By setting &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;D = ABA^T&lt;/script&gt;&lt;/span&gt;, we get&lt;/p&gt;
+
+&lt;div class=&quot;mathblock&quot;&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\text{tr}(ABA^T) = \text{tr}(D) = f(D)
+&lt;/script&gt;&lt;/div&gt;
+
+&lt;p&gt;due to the fact that the trace of a matrix is a function &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;f&lt;/script&gt;&lt;/span&gt; that maps from &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;\mathbb{R}^{m \times n}&lt;/script&gt;&lt;/span&gt; to &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;\mathbb{R}&lt;/script&gt;&lt;/span&gt;. Taking the transpose of the last equation and noting that &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;(AB)^T = B^T A^T&lt;/script&gt;&lt;/span&gt;, we get&lt;/p&gt;
+
+&lt;div class=&quot;mathblock&quot;&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{align}
+[ \nabla_A f(D) &amp;= AB + AB^T ]^T \\
+(\nabla_{A} f(D))^T &amp;= B^T A^T + BA^T
+\end{align}
+&lt;/script&gt;&lt;/div&gt;
+
+&lt;p&gt;But the left-hand side of the equation is just the first theorem. Thus, we have&lt;/p&gt;
+
+&lt;div class=&quot;mathblock&quot;&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\nabla_{A^T} f(D) = B^T A^T + BA^T
+&lt;/script&gt;&lt;/div&gt;
+
+&lt;p&gt;We can finally proceed with our derivation.&lt;/p&gt;
+
+&lt;h2 id=&quot;all-together-now&quot;&gt;All Together Now&lt;/h2&gt;
+
+&lt;p&gt;Let’s take the gradient of &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;J&lt;/script&gt;&lt;/span&gt; with respect to &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;\theta&lt;/script&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;div class=&quot;mathblock&quot;&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{align}
+\nabla_\theta J(\vec{\theta}) &amp;= \nabla_\theta \left(\frac{1}{2}(X\vec{\theta} - \vec{y})^T(X\vec{\theta} - \vec{y})\right) \\
+&amp;= \frac{1}{2} \nabla_\theta \left( \vec{\theta}^T X^T X \vec{\theta} - \vec{\theta}^T X^T \vec{y} - \vec{y}^T X \vec{\theta} + \vec{y}^T \vec{y} \right)
+\end{align}
+&lt;/script&gt;&lt;/div&gt;
+
+&lt;p&gt;The term &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;\vec{y}^T \vec{y}&lt;/script&gt;&lt;/span&gt; on the right side is a real number. This indicates that the whole term in the parentheses is some function that maps to a real number. If we use the fact that the trace of a real number is just itself, and that &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;\text{tr}(A) = \text{tr}(A^T)&lt;/script&gt;&lt;/span&gt;, we get&lt;/p&gt;
+
+&lt;div class=&quot;mathblock&quot;&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{align}
+\nabla_\theta J(\vec{\theta}) &amp;= \frac{1}{2} \nabla_\theta \text{tr} \left( \vec{\theta}^T X^T X \vec{\theta} - \vec{\theta}^T X^T \vec{y} - \vec{y}^T X \vec{\theta} + \vec{y}^T \vec{y} \right) \\
+&amp;= \frac{1}{2} \nabla_\theta \left[ \text{tr}(\vec{\theta}^T X^T X \vec{\theta}) - \text{tr}(\vec{y}^T X \vec{\theta}) - \text{tr}(\vec{\theta}^T X^T \vec{y}) + \text{tr}(\vec{y}^T \vec{y}) \right] \\
+&amp;= \frac{1}{2} \nabla_\theta \left[ \text{tr}(\vec{\theta}^T X^T X \vec{\theta}) - \text{tr}(\vec{y}^T X \vec{\theta})^T - \text{tr}(\vec{\theta}^T X^T \vec{y}) + \text{tr}(\vec{y}^T \vec{y}) \right] \\
+&amp;= \frac{1}{2} \nabla_\theta \left[ \text{tr}(\vec{\theta}^T X^T X \vec{\theta}) - \text{tr}(\vec{\theta}^T X^T \vec{y}) - \text{tr}(\vec{\theta}^T X^T \vec{y}) + \text{tr}(\vec{y}^T \vec{y}) \right] \\
+&amp;= \frac{1}{2} \nabla_\theta \left[ \text{tr}(\vec{\theta}^T X^T X \vec{\theta}) - 2\text{tr}(\vec{\theta}^T X^T \vec{y}) + \text{tr}(\vec{y}^T \vec{y}) \right].
+\end{align}
+&lt;/script&gt;&lt;/div&gt;
+
+&lt;p&gt;The term &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;\text{tr}(\vec{y}^T \vec{y})&lt;/script&gt;&lt;/span&gt; has vanished because it’s treated as a constant when we’re taking the gradient with respect to &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;\theta&lt;/script&gt;&lt;/span&gt;.&lt;/p&gt;
+
+&lt;p&gt;We are now left with&lt;/p&gt;
+
+&lt;div class=&quot;mathblock&quot;&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\nabla_\theta J(\vec{\theta}) = \frac{1}{2} \nabla_\theta \left[ \text{tr}(\vec{\theta}^T X^T X \vec{\theta}) - 2\text{tr}(\vec{\theta}^T X^T \vec{y}) \right].
+&lt;/script&gt;&lt;/div&gt;
+
+&lt;p&gt;If we use our derived theorem above (&lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;\nabla_{A^T} f(D) = B^T A^T + BA^T&lt;/script&gt;&lt;/span&gt;) and substitute as follows,&lt;/p&gt;
+
+&lt;div class=&quot;mathblock&quot;&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{align}
+A^T &amp;= \vec{\theta} \\
+B &amp;= X^TX
+\end{align}
+&lt;/script&gt;&lt;/div&gt;
+
+&lt;p&gt;we should get&lt;/p&gt;
+
+&lt;div class=&quot;mathblock&quot;&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+\begin{align}
+\nabla_\theta J(\vec{\theta}) &amp;= \frac{1}{2} \left(X^T X \vec{\theta} + X^T X \vec{\theta} - 2 X^T \vec{y} \right) \\
+&amp;= X^T X \vec{\theta} - X^T \vec{y}
+\end{align}
+&lt;/script&gt;&lt;/div&gt;
+
+&lt;p&gt;Since &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;\nabla_\theta J(\vec{\theta}) = 0&lt;/script&gt;&lt;/span&gt;, we finally have&lt;/p&gt;
+
+&lt;div class=&quot;mathblock&quot;&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+X^T X \vec{\theta} - X^T \vec{y} = 0
+&lt;/script&gt;&lt;/div&gt;
+
+&lt;p&gt;which is the normal equation. How cool is that! :)&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 22 Nov 2015 00:00:00 -0500</pubDate>
+        <link>http://adlersantos.com/articles/15/deriving-normal-equation</link>
+        <guid isPermaLink="true">http://adlersantos.com/articles/15/deriving-normal-equation</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>A Beginner&#39;s Guide on Using Data to Assess Business Performance</title>
+        <description>&lt;p&gt;Running an online business that’s growing slower than projected is never an ideal scenario. What can tremendously help diagnose the problem is to have data and know how to gain insights from it. It is only through the collection and analysis of data where you can free yourself from guesswork, start validating assumptions, and gain insights on how you should be operating your business. &lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;But there’s a caveat: data that wasn’t measured is data that’s lost forever &lt;code&gt;[1]&lt;/code&gt;. Things will seem hopeless if you haven’t been collecting data all the while. It’s not too late. You can still turn outcomes in your favor by knowing exactly what data you need to collect moving forward. Read on and I’ll show you how.&lt;/p&gt;
+
+&lt;p&gt;Discovering new efficiencies and identifying root causes of problems requires collecting the right data from both a conceptually comprehensive (the whole funnel or customer lifecycle) and a rigorously detailed (what and how to measure) perspective.&lt;/p&gt;
+
+&lt;h2 id=&quot;where-are-your-visitors-coming-from&quot;&gt;Where are your visitors coming from?&lt;/h2&gt;
+
+&lt;p&gt;There’s a saying that traffic is the cure-all. Time and time again, I’ve found companies stumble on a lack of traffic as the root of many of their problems.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;High-quality traffic needs to be earned, not bought.&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;It’s very tempting to spend money right now to boost your traffic. But if your site isn’t optimized and you don’t have a strong retention program, the only thing that your marketing budget can do is to temporarily increase your site’s visitors or one-off sales. This isn’t sustainable in the long term when you’ve generated maximum reach in your target market due to perpetual spending on marketing. High-quality traffic needs to be earned, not bought.&lt;/p&gt;
+
+&lt;p&gt;I can’t stress this enough, but avoid being impulsive in spending your marketing budget to quickly increase your traffic if your site isn’t optimized (technically, about 2% conversion from visit to purchase). More importantly, if you’re not even collecting data, cut marketing spend as much as possible since there’s no way to tell whether your site is optimized or not.&lt;/p&gt;
+
+&lt;h2 id=&quot;conversion-rates-what-keeps-you-up-at-night&quot;&gt;Conversion Rates: What Keeps You Up At Night&lt;/h2&gt;
+
+&lt;p&gt;Conversion is defined by two things:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;A situation that a visitor is in. For example: landing on a webpage containing all the features your product or service is capable of doing.&lt;/li&gt;
+  &lt;li&gt;An action they’re expected to make under that situation. For example: signup for a free trial of your product.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;br /&gt;
+And here are some common examples of conversion:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;For every new visitor who arrives at your landing page and signs up, that’s a conversion to signup.&lt;/li&gt;
+  &lt;li&gt;For every person who visits your site and makes a purchase, that’s a conversion to purchase.&lt;/li&gt;
+  &lt;li&gt;For anyone who clicks on one of your social media posts and arrives at your site, that’s a conversion to visit.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;
+Now let’s talk about conversion rate. It’s defined as the percentage of people who converted among those who were given a certain situation or offering on your site. Conversion rates are what makes or breaks businesses. You may have a million monthly visitors but only four thousand monthly paying customers &lt;code&gt;[2]&lt;/code&gt;. The conversion from visit to purchase is 0.4%, which is generally a very bad conversion rate.&lt;/p&gt;
+
+&lt;p&gt;Low conversion rates keep the top business executives up at night. The reason being there are many variables at play that contribute to an increase or decrease in conversions. Some examples are seasonality, the quality of traffic, assortment, user experience, navigability, promotions, and customer service. Adding to the complexity of figuring out the causes of conversion rates is how these variables affect each other &lt;code&gt;[3]&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;There are situations where improving the conversion rate in one step of the funnel causes a decrease in conversion rate at another step of the funnel. For example, you may be optimizing your conversion rate from free trial to purchase by asking people to input their credit card information upon signup. But doing so can add friction to the ease of creating an account for a free trial. As a result, you’ll probably see a decrease in your signup conversion rate.&lt;/p&gt;
+
+&lt;p&gt;If you’re constantly making changes in the hopes of optimizing conversion rates, the key is to monitor the overall effect of the fluctuations across affected steps of the funnel. Say your funnel involves three steps: A, B, and C. Below is a simplified example of the results of a split test where you tried to optimize conversion from steps A to B.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Current Version&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Conversion from A to B is 50%&lt;/li&gt;
+  &lt;li&gt;Conversion from B to C is 50%&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;strong&gt;Experimental Version (optimized A to B)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Conversion from A to B is 90%&lt;/li&gt;
+  &lt;li&gt;Conversion from B to C is 20%&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;
+At first glance, it seems reasonable to go with the experimental version since the 40% lift in conversion from A to B (50% to 90%) have “outweighed” the 30% decrease in conversion from B to C (50% to 20%). But it’s the conversion rate from A to C that should ultimately be considered. The current version’s A-C conversion is (100% x 50% x 50%) = 25%. While the experimental version’s A-C conversion is (100% x 90% x 20%) = 18%. Thus, the current version is still better than the experimental one.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-effective-are-your-landing-pages&quot;&gt;How effective are your landing pages?&lt;/h2&gt;
+
+&lt;p&gt;A landing page is the first page viewed for any given visitor. The optimal setup is to have several landing pages, each suited to welcome incoming traffic driven by marketing campaigns targeting specific demographics. Landing pages usually get the biggest share of traffic across all of your site’s pages. They’re usually located at the start of the funnel and represent the last point of contact for marketing. From then on, it’s already the function of the site that’s responsible on delivering what was written and promised on the marketing content.&lt;/p&gt;
+
+&lt;p&gt;The most important conversion rate to monitor on a landing page is its &lt;em&gt;bounce rate&lt;/em&gt;. The bounce rate of a page represents the percentage of visits where the first page viewed is that page and it was the only page viewed by that visit. In simpler terms, the bounce rate of a page is the percentage of single-page visits on that page.&lt;/p&gt;
+
+&lt;p&gt;Bounce rates are important because it gives us a measure of interest (or disinterest) on your landing pages. Ideally, your landing pages should be able to address two things:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Capture the interest of people who’ve never heard of your site before&lt;/li&gt;
+  &lt;li&gt;Give returning visitors useful content to consume &lt;code&gt;[4]&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;br /&gt;
+It’s all about making people who just entered or returned to your site react positively to your offering. If they’re interested, they go to another part of your site to know more about your offer, and they won’t count as a bounce. The bounce rate is a simple metric to start with in order to quantify engagement at the start of the funnel.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-engaged-are-your-visitors&quot;&gt;How engaged are your visitors?&lt;/h2&gt;
+
+&lt;p&gt;Engagement is all about the degree in which people who come to your site become convinced of your calls to action, love your content, share it with others, explore other parts of your site on their own, contribute their own content, or constantly use your service.&lt;/p&gt;
+
+&lt;p&gt;How do you measure engagement? I’ll give you some examples:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;For content sites that publish articles, news, and stories, the average time spent among visitors viewing an article is indicative of them taking their time to consume the content. Also, the degree of activity in the comments section or discussion pages can be a measure of engagement.&lt;/li&gt;
+  &lt;li&gt;For ecommerce sites, user-submitted product reviews can provide insights on how engaged buyers of your products are. Waitlists for out-of-stock products can help map out the needs of your prospective buyers.&lt;/li&gt;
+  &lt;li&gt;For SaaS services, growth in the number of active users compared to new signups over time is an important measure of engagement. The definition of an active user will vary on several variables. The most common definition depends on how frequently you expect people to use your app. For example, an active user for a “weekend” app can be defined as someone who consistently uses your app every weekend.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;
+An often overlooked mindset that online businesses make when it comes to figuring out how to measure engagement is to relate those metrics to revenue. Engagement should ultimately be a measure of the propensity of your visitors to eventually perform actions that contribute to your revenue. You shouldn’t be happy with a highly engaged audience if you’re not really converting enough of them towards revenue. We’re not here to play the vanity metrics game.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;A million people visit an online retail site. No one buys anything. Press declares retail site a massive success!&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Every online business must achieve profitability at some point, and be sustainable moving forward. Which brings us to the most important metric: revenue.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-user-actions-give-you-revenue&quot;&gt;What user actions give you revenue?&lt;/h2&gt;
+
+&lt;p&gt;We’ve finally come to the part of the funnel that’s the lifeblood of every business. This is where we can fully encourage activities that drive revenue. When you’re only starting out, you need to monitor aspects of your site that you think may encourage visitors to take action towards a purchase, i.e. conversion to revenue &lt;code&gt;[5]&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;For e-commerce businesses in particular, conversion to revenue means anyone who checks out and pays for the items in her cart. For SaaS businesses, it’s a user who subscribes to a paid plan, along with paid add-ons or enhancements to the plan.&lt;/p&gt;
+
+&lt;p&gt;It’s possible to drive revenue at the start of the funnel and it seems intuitive to do so because landing pages get the most traffic. But this is far from ideal. Forcing visitors to put out their wallets immediately after landing on your site will probably be a disaster. Your best shot in converting visitors to buyers is to condition them or guide them towards making a purchase, i.e. a purchase that they’re willing to make.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Make every conversion to revenue the result of an informed decision.&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This may seem contrary to typical sales advice wherein the more you hustle, the more deals you close. But do what you can in your power to make every conversion to revenue the result of an informed decision. Giving your users enough guidance for them to be willing to pay is to your advantage. First, it builds brand loyalty and awareness. You’ll get really happy customers who would be willing to tell the good news to others. Second, they’ll have you on top of their minds when they need to purchase the same product again. Third, you can create mechanisms to receive very helpful feedback from visitors who had a pleasant experience but in the end still refrained from making a purchase.&lt;/p&gt;
+
+&lt;h2 id=&quot;its-a-wrap&quot;&gt;It’s a wrap!&lt;/h2&gt;
+
+&lt;p&gt;So there goes your overview! The items above aren’t exhaustive, but should help you think about data and how your business as-a-whole is performing in terms of actual events happening on-site.&lt;/p&gt;
+
+&lt;p&gt;I hope this article gave you a sense of some key metrics that you should be measuring, and will encourage your business to discuss further what other data points need to be collected. My hope is that such data should provide a richer picture of how your business is performing and help you become more data-driven in coming up with business strategies.&lt;/p&gt;
+
+&lt;h4 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h4&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;[1]&lt;/code&gt;&lt;/strong&gt; These are mostly time-based or time-sensitive data that needs to be collected at the moment of the event. On a lighter note, there are types of the data that weren’t measured, but can still be inferred from currently available data.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;[2]&lt;/code&gt;&lt;/strong&gt; Normally, customer acquisition cost, churn, and projected lifetime value are also taken into account.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;[3]&lt;/code&gt;&lt;/strong&gt; For data scientists, monitoring correlations among conversion rates across the funnel is a pastime activity.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;[4]&lt;/code&gt;&lt;/strong&gt; Even for SaaS, returning visitors to your landing pages are mostly people who are still assessing whether they’ll use your software or not. Active or signed up users of your product will more or less be already logged into your app’s dashboard, or will enter your site on the login page. Even if they enter your site via your landing page just to get to your login page, they won’t count as bounce.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;[5]&lt;/code&gt;&lt;/strong&gt; In general, it’s any user’s actions that contribute to revenue. Some online businesses, like high-traffic content sites, do not depend on purchases for revenue. They generate revenue by selling ad space on-site and when readers click on their ads. For our purposes, we’ll use the term “buyer” to denote a user whose actions generated revenue for your business.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 01 Sep 2015 00:00:00 -0400</pubDate>
+        <link>http://adlersantos.com/articles/15/beginners-guide-using-data-assess-business-performance</link>
+        <guid isPermaLink="true">http://adlersantos.com/articles/15/beginners-guide-using-data-assess-business-performance</guid>
+        
+        
+      </item>
+    
   </channel>
 </rss>
