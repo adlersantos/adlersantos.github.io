@@ -3,6 +3,7 @@
   <channel>
     <title>Adler Santos</title>
     <description>Data Scientist and Software Engineer</description>
+
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <pubDate>Tue, 02 Jan 2018 01:23:22 -0500</pubDate>
@@ -33,6 +34,7 @@
 Step out of your bubble once in a while, for your own good and self-improvement.&lt;/p&gt;
 </description>
         <pubDate>Sun, 20 Aug 2017 00:00:00 -0400</pubDate>
+
         <link>/articles/17/changing-your-behaviour-not-who-you-are</link>
         <guid isPermaLink="true">/articles/17/changing-your-behaviour-not-who-you-are</guid>
         
@@ -279,6 +281,7 @@ S_f &amp;= 0
 &lt;p&gt;Hope this was insightful! &lt;span&gt;​&lt;script type=&quot;math/tex&quot;&gt;_\square&lt;/script&gt;&lt;/span&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 02 Apr 2017 00:00:00 -0400</pubDate>
+
         <link>/articles/17/machine-learning-entropy-and-classification</link>
         <guid isPermaLink="true">/articles/17/machine-learning-entropy-and-classification</guid>
         
@@ -487,6 +490,7 @@ S_f &amp;= 0
 &lt;p&gt;Hope this helps!&lt;/p&gt;
 </description>
         <pubDate>Tue, 08 Mar 2016 00:00:00 -0500</pubDate>
+
         <link>/articles/16/pivoting-mysql-columns-as-dates</link>
         <guid isPermaLink="true">/articles/16/pivoting-mysql-columns-as-dates</guid>
         
@@ -663,6 +667,7 @@ X^T X \vec{\theta} - X^T \vec{y} = 0
 
 </description>
         <pubDate>Sun, 22 Nov 2015 00:00:00 -0500</pubDate>
+
         <link>/articles/15/deriving-normal-equation</link>
         <guid isPermaLink="true">/articles/15/deriving-normal-equation</guid>
         
@@ -804,6 +809,7 @@ An often overlooked mindset that online businesses make when it comes to figurin
 &lt;p&gt;&lt;strong&gt;&lt;code&gt;[5]&lt;/code&gt;&lt;/strong&gt; In general, it’s any user’s actions that contribute to revenue. Some online businesses, like high-traffic content sites, do not depend on purchases for revenue. They generate revenue by selling ad space on-site and when readers click on their ads. For our purposes, we’ll use the term “buyer” to denote a user whose actions generated revenue for your business.&lt;/p&gt;
 </description>
         <pubDate>Tue, 01 Sep 2015 00:00:00 -0400</pubDate>
+
         <link>/articles/15/beginners-guide-using-data-assess-business-performance</link>
         <guid isPermaLink="true">/articles/15/beginners-guide-using-data-assess-business-performance</guid>
         
