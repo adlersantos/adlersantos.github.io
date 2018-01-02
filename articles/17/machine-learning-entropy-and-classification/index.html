@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Machine Learning: Entropy and Classification</title>
+  <meta name="description" content="A Simple Classification ExampleLet’s say we have a dataset with categorical features ​, ​, ​, and a binary target variable ​: ⊕             id      Feature ​...">
+
+  <!-- Google Fonts loaded here depending on setting in _data/options.yml true loads font, blank does not-->
+  
+    <link href='//fonts.googleapis.com/css?family=Lato:400,400italic' rel='stylesheet' type='text/css'>
+  
+  
+  <!-- Load up MathJax script if needed ... specify in /_data/options.yml file-->
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+  <link rel="stylesheet" type="text/css" href="/css/tufte.css">
+  <!-- <link rel="stylesheet" type="text/css" href="/css/print.css" media="print"> -->
+
+  <link rel="canonical" href="/articles/17/machine-learning-entropy-and-classification">
+
+  <link rel="alternate" type="application/rss+xml" title="Adler Santos" href="/feed.xml" />
+</head>
+
+  <body>
+    <!--- Header and nav template site-wide -->
+<header>
+  <nav class="group">
+  	<a href="/"><img class="badge" src="/assets/img/avatar.png" alt="CH"></a>
+		
+			
+  	
+			
+		    
+		      <a href="/index.html">Writings</a>
+		    
+	    
+  	
+			
+  	
+			
+		    
+		      <a href="/about/index.html">About</a>
+		    
+	    
+  	
+			
+		    
+		      <a href="/css/print.css"></a>
+		    
+	    
+  	
+			
+  	
+	</nav>
+</header>
+
+    <article class="group">
+      <h1>Machine Learning: Entropy and Classification</h1>
+<p class="subtitle">April 2, 2017</p>
+
+<h2 id="a-simple-classification-example">A Simple Classification Example</h2>
+
+<p>Let’s say we have a dataset with categorical features <span>​<script type="math/tex">P</script></span>, <span>​<script type="math/tex">Q</script></span>, <span>​<script type="math/tex">R</script></span>, and a binary target variable <span>​<script type="math/tex">Z</script></span>:</p>
+
+<p><label for="" class="margin-toggle"> ⊕</label><input type="checkbox" class="margin-toggle" /><span class="marginnote"> </span></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: right">id</th>
+      <th style="text-align: center">Feature <span>​<script type="math/tex">P</script></span></th>
+      <th style="text-align: center">Feature <span>​<script type="math/tex">Q</script></span></th>
+      <th style="text-align: center">Feature <span>​<script type="math/tex">R</script></span></th>
+      <th style="text-align: center">Target Variable <span>​<script type="math/tex">Z</script></span></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right">1</td>
+      <td style="text-align: center">a</td>
+      <td style="text-align: center">c</td>
+      <td style="text-align: center">e</td>
+      <td style="text-align: center"><span>​<script type="math/tex">G</script></span></td>
+    </tr>
+    <tr>
+      <td style="text-align: right">2</td>
+      <td style="text-align: center">b</td>
+      <td style="text-align: center">d</td>
+      <td style="text-align: center">e</td>
+      <td style="text-align: center"><span>​<script type="math/tex">G</script></span></td>
+    </tr>
+    <tr>
+      <td style="text-align: right">3</td>
+      <td style="text-align: center">b</td>
+      <td style="text-align: center">d</td>
+      <td style="text-align: center">f</td>
+      <td style="text-align: center"><span>​<script type="math/tex">H</script></span></td>
+    </tr>
+    <tr>
+      <td style="text-align: right">4</td>
+      <td style="text-align: center">a</td>
+      <td style="text-align: center">d</td>
+      <td style="text-align: center">e</td>
+      <td style="text-align: center"><span>​<script type="math/tex">G</script></span></td>
+    </tr>
+    <tr>
+      <td style="text-align: right">5</td>
+      <td style="text-align: center">a</td>
+      <td style="text-align: center">c</td>
+      <td style="text-align: center">f</td>
+      <td style="text-align: center"><span>​<script type="math/tex">H</script></span></td>
+    </tr>
+    <tr>
+      <td style="text-align: right">6</td>
+      <td style="text-align: center">b</td>
+      <td style="text-align: center">d</td>
+      <td style="text-align: center">f</td>
+      <td style="text-align: center"><span>​<script type="math/tex">H</script></span></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The goal is to find the feature that best predicts the value of <span>​<script type="math/tex">Z</script></span>. <!--more--></p>
+
+<p>After a bit of close inspection, we see that Feature <span>​<script type="math/tex">R</script></span> will have the highest “predictive power” in determining <span>​<script type="math/tex">Z</script></span>:</p>
+
+<ul>
+  <li>All instances with Feature <span>​<script type="math/tex">R</script></span> equal to <code>e</code> (ids 1, 2, 4, 6) belong to class <span>​<script type="math/tex">G</script></span>.</li>
+  <li>All instances with Feature <span>​<script type="math/tex">R</script></span> equal to <code>f</code> (ids 3, 5) belong to class <span>​<script type="math/tex">H</script></span>.</li>
+</ul>
+
+<p><br />
+The other features <span>​<script type="math/tex">P</script></span> and <span>​<script type="math/tex">Q</script></span> are not as accurate as <span>​<script type="math/tex">R</script></span> in predicting the target. We call Feature <span>​<script type="math/tex">R</script></span> as the <em>most informative attribute</em>.</p>
+
+<h2 id="entropy">Entropy</h2>
+
+<p>It might seem an easy task to determine the most informative attribute in the dataset above by hand. But for larger, more complex datasets, it’s impractical to count and match all the features with target classes for all samples. We need a way to measure the informativeness of a feature, that is, how it effectively classifies the dataset. Fortunately, we have <em>entropy</em> to help us do that.</p>
+
+<p>Entropy is a term used in statistical physics as a measure of how disordered a system is. Machine learning’s use of entropy isn’t far from this concept of disorderedness. In ML, a set of instances is said to be disordered when there’s a considerable mix of target classes that the instances belong to. This means that the more mixed the segment is with respect to the classifications (i.e., target variables), the higher the entropy.</p>
+
+<p>The entropy <span>​<script type="math/tex">S</script></span> of a set with a binary target with values <span>​<script type="math/tex">G</script></span> and <span>​<script type="math/tex">H</script></span> is defined as</p>
+
+<div class="mathblock"><script type="math/tex; mode=display">
+S = -\sum_{i \in \{G,H\}} p_i \log(p_i)
+</script></div>
+
+<p>where <span>​<script type="math/tex">p_i</script></span> is the proportion of the ith target variable in the set. Entropy always ranges between 0 (minimum disorder) and 1 (maximum disorder).</p>
+
+<p>As an exercise, let’s calculate <span>​<script type="math/tex">S</script></span> for the whole dataset:</p>
+
+<div class="mathblock"><script type="math/tex; mode=display">
+\begin{align}
+S &= -\sum_{i \in \{G,H\}} p_i \ \log(p_i) \\
+&= -p_{G} \log(p_{G}) - p_{H} \log(p_{H}) \\
+&= -(0.5)\log(0.5) - (0.5)\log(0.5) \\
+&= 1
+\end{align}
+</script></div>
+
+<p>This tells us that a set whose samples are equally divided among the target’s values is maximally disordered.</p>
+
+<p>If we have two or more target classes, the equation above generalizes as follows:</p>
+
+<div class="mathblock"><script type="math/tex; mode=display">
+S = -\sum_{i \in V_t} p_i \log(p_i)
+</script></div>
+
+<p>where <span>​<script type="math/tex">V_t</script></span> is the set of unique values of the target variable.</p>
+
+<p>It’s easy to see that the number of elements in <span>​<script type="math/tex">V_t</script></span> is equal to the number of terms in the summation.</p>
+
+<p>Classifying datasets with categorical attributes is all about segmenting data in a way that the resulting subsets have lower entropy than the whole dataset, all without penalizing the model’s performance when it’s time to classify unknown data (i.e., prevent the model from overfitting).</p>
+
+<h2 id="information-gain">Information Gain</h2>
+
+<p>The informativeness of a feature can be measured using the concept of information gain, which can be defined using entropy. Consider a dataset which we call the <em>parent</em>, and we’d like to know how well a certain feature classifies the elements contained in the parent.</p>
+
+<p>We define the information gain <span>​<script type="math/tex">I_G</script></span> of a feature <span>​<script type="math/tex">G</script></span> on some parent dataset as</p>
+
+<div class="mathblock"><script type="math/tex; mode=display">
+I_G = S_p - \sum_{j \in V_f} P_j S_j
+</script></div>
+
+<p>where <span>​<script type="math/tex">V_G</script></span> is the set of unique values of feature <span>​<script type="math/tex">G</script></span>, <span>​<script type="math/tex">S_p</script></span> is the entropy of the parent set, <span>​<script type="math/tex">P_j</script></span> is the proportion of instances belonging to the <span>​<script type="math/tex">j</script></span>th value of the considered feature, and <span>​<script type="math/tex">S_j</script></span> is the entropy of the set whose elements have the <span>​<script type="math/tex">j</script></span>th value of the feature.</p>
+
+<p>Now let’s apply the definition of information gain <span>​<script type="math/tex">I</script></span> for every feature in our dataset above.</p>
+
+<h3 id="information-gain-span8203script-typemathtexipscriptspan">Information Gain <span>​<script type="math/tex">I_P</script></span></h3>
+
+<p>The information gain for Feature <span>​<script type="math/tex">P</script></span>, whose values are the set <span>​<script type="math/tex">{a, b}</script></span>, is</p>
+
+<div class="mathblock"><script type="math/tex; mode=display">
+I_P = S_p - \sum_{j \in \{a, b\}} P_j S_j
+</script></div>
+
+<p><span>​<script type="math/tex">P_a</script></span> and <span>​<script type="math/tex">P_b</script></span> in the summation are the proportion of instances where Feature <span>​<script type="math/tex">Q</script></span> has values <span>​<script type="math/tex">a</script></span> and <span>​<script type="math/tex">b</script></span>, respectively.</p>
+
+<div class="mathblock"><script type="math/tex; mode=display">
+P_a = \frac{3}{6} = 0.5 \\
+P_b = \frac{3}{6} = 0.5
+</script></div>
+
+<p>Now <span>​<script type="math/tex">S_a</script></span> and <span>​<script type="math/tex">S_b</script></span> are the entropies of the subsets whose instances have Feature <span>​<script type="math/tex">Q</script></span> equal to <span>​<script type="math/tex">a</script></span> and <span>​<script type="math/tex">b</script></span>, respectively.</p>
+
+<div class="mathblock"><script type="math/tex; mode=display">
+\begin{align}
+S_a &= -\sum_{i \in \{G,H\}} p_{a,i} \ \log(p_{a,i}) \\
+&= -p_{G} \log(p_{G}) - p_{H} \log(p_{H}) \\
+&= -\frac{2}{3} \log\left(\frac{2}{3}\right) - \frac{1}{3} \log \left(\frac{1}{3}\right) \\
+&= 0.918 \\
+\\
+S_b &= -\sum_{i \in \{G,H\}} p_{b,i} \ \log(p_{b,i}) \\
+&= -p_{G} \log(p_{G}) - p_{H} \log(p_{H}) \\
+&= -\frac{1}{3} \log\left(\frac{1}{3}\right) - \frac{2}{3} \log \left(\frac{2}{3}\right) \\
+&= 0.918
+\end{align}
+</script></div>
+
+<p>Thus, the information gain for Feature <span>​<script type="math/tex">P</script></span> is</p>
+
+<div class="mathblock"><script type="math/tex; mode=display">
+\begin{align}
+I_P &= 1 - [(0.5)(0.918) + (0.5)(0.918)] \\
+&= 0.541
+\end{align}
+</script></div>
+
+<h3 id="information-gain-span8203script-typemathtexiqscriptspan">Information Gain <span>​<script type="math/tex">I_Q</script></span></h3>
+
+<p>Given the following values,</p>
+
+<div class="mathblock"><script type="math/tex; mode=display">
+\begin{align}
+P_c &= \frac{2}{6} \\
+P_d &= \frac{4}{6} \\
+S_c &= 1 \\
+S_d &= 1 
+\end{align}
+</script></div>
+
+<p>we see that the value of <span>​<script type="math/tex">I_Q</script></span> is zero.</p>
+
+<p>This means that there is no information gained when using Feature <span>​<script type="math/tex">Q</script></span> to classify the dataset.</p>
+
+<h3 id="information-gain-span8203script-typemathtexirscriptspan">Information Gain <span>​<script type="math/tex">I_R</script></span></h3>
+
+<p>Given the following values,</p>
+
+<div class="mathblock"><script type="math/tex; mode=display">
+\begin{align}
+P_e &= \frac{3}{6} \\
+P_f &= \frac{3}{6} \\
+S_e &= 0 \\
+S_f &= 0
+\end{align}
+</script></div>
+
+<p>we see that the value of <span>​<script type="math/tex">I_R</script></span> is 1, the highest information gain among all the features.</p>
+
+<p>Using the definitions and tools outlined above, we can now formally state why Feature <span>​<script type="math/tex">R</script></span> is the most informative attribute. It’s because it has the highest information gain among all the features in the dataset.</p>
+
+<h2 id="what-about-numeric-features">What about numeric features?</h2>
+
+<p>We may begin to wonder about regression problems, where the target variable is a numeric one instead of a categorical one. How do we calculate for the most informative attribute in this case?</p>
+
+<p>Information gain still makes sense here. But it must represent a numerical feature’s “closeness” to the target variable. Instead of using entropy as a measure of disorder (or order) with regards to the categorical target values, we use <em>variance</em> as a measure of closeness to the target value.</p>
+
+<p>A feature will have a high variance if its values do not behave as the target values behave. Low variance occurs when the feature increases (decreases) in value, the target also increases (decrease) in value. In other words, the counterpart of information gain in regression problems is <em>correlation</em>.</p>
+
+<p>Here’s a table outlining which quantities are analogous to each other between classification and regression problems.</p>
+
+<p><label for="" class="margin-toggle"> ⊕</label><input type="checkbox" class="margin-toggle" /><span class="marginnote"> </span></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"> </th>
+      <th style="text-align: left">Measure of Orderness</th>
+      <th style="text-align: left">Measure of Informativeness</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Classification</td>
+      <td style="text-align: left">Entropy</td>
+      <td style="text-align: left">Information Gain</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Regression</td>
+      <td style="text-align: left">Variance</td>
+      <td style="text-align: left">Correlation</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Hope this was insightful! <span>​<script type="math/tex">_\square</script></span></p>
+
+
+
+    </article>
+    <span class="print-footer">Machine Learning: Entropy and Classification - April 2, 2017 - Adler Santos</span>
+    <footer>
+  <hr class="slender">
+  <ul class="footer-links">
+    
+      <li>
+        <a href="//www.twitter.com/adlersantos"><span class="icon-twitter"></span></a>
+      </li>
+    
+  </ul>
+<div class="credits">
+<span>&copy; 2018 &nbsp;&nbsp;ADLER SANTOS</span></br> <br>
+<span>Powered by <a href="//github.com/clayh53/tufte-jekyll">Tufte theme for Jekyll</a>.</span>
+</div>
+</footer>
+
+  </body>
+</html>
