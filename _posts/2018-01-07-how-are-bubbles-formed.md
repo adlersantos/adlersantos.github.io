@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  How are bubbles formed?
+title:  How Are Bubbles Formed?
 date:   2018-01-08
 ---
 
@@ -10,7 +10,7 @@ This reminds me of what Warren Buffett tells us to do when we see compelling evi
 
 > “Be fearful when others are greedy, and greedy when others are fearful.” – Warren Buffett
 
-But only a few have the discipline to do this, because  everyone can easily forget about the principle when they're constantly seduced by social proofs of getting rich by everyone they know, everywhere they look. 
+But only a few have the discipline to do this, because  everyone can easily forget about the principle when they're constantly seduced by social proofs of getting rich by everyone they know, everywhere they look. <!--more-->
 
 I can think of three examples of bubbles to illustrate what I mean by compounded greed due to reinforced optimism: the stock market, real estate, and manufacturing.
 
