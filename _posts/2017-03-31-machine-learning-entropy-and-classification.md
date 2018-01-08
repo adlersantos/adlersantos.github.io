@@ -1,0 +1,176 @@
+---
+layout: post
+title:  "Machine Learning: Entropy and Classification"
+date:   2017-04-02
+---
+
+## A Simple Classification Example 
+
+Let's say we have a dataset with categorical features {%m%}P{%em%}, {%m%}Q{%em%}, {%m%}R{%em%}, and a binary target variable {%m%}Z{%em%}:
+
+{% marginnote %}
+
+| id | Feature {%m%}P{%em%} | Feature {%m%}Q{%em%} | Feature {%m%}R{%em%} | Target Variable {%m%}Z{%em%} |
+|---:|:---------:|:---------:|:---------:|:---------------:|
+| 1 | a | c | e | {%m%}G{%em%} |
+| 2 | b | d | e | {%m%}G{%em%} |
+| 3 | b | d | f | {%m%}H{%em%} |
+| 4 | a | d | e | {%m%}G{%em%} |
+| 5 | a | c | f | {%m%}H{%em%} |
+| 6 | b | d | f | {%m%}H{%em%} |
+
+The goal is to find the feature that best predicts the value of {%m%}Z{%em%}. <!--more-->
+
+After a bit of close inspection, we see that Feature {%m%}R{%em%} will have the highest "predictive power" in determining {%m%}Z{%em%}:
+
+- All instances with Feature {%m%}R{%em%} equal to `e` (ids 1, 2, 4, 6) belong to class {%m%}G{%em%}.
+- All instances with Feature {%m%}R{%em%} equal to `f` (ids 3, 5) belong to class {%m%}H{%em%}.
+
+<br />
+The other features {%m%}P{%em%} and {%m%}Q{%em%} are not as accurate as {%m%}R{%em%} in predicting the target. We call Feature {%m%}R{%em%} as the _most informative attribute_.
+
+## Entropy
+
+It might seem an easy task to determine the most informative attribute in the dataset above by hand. But for larger, more complex datasets, it's impractical to count and match all the features with target classes for all samples. We need a way to measure the informativeness of a feature, that is, how it effectively classifies the dataset. Fortunately, we have _entropy_ to help us do that.
+
+Entropy is a term used in statistical physics as a measure of how disordered a system is. Machine learning's use of entropy isn't far from this concept of disorderedness. In ML, a set of instances is said to be disordered when there's a considerable mix of target classes that the instances belong to. This means that the more mixed the segment is with respect to the classifications (i.e., target variables), the higher the entropy.
+
+The entropy {%m%}S{%em%} of a set with a binary target with values {%m%}G{%em%} and {%m%}H{%em%} is defined as
+
+{% math %}
+S = -\sum_{i \in \{G,H\}} p_i \log(p_i)
+{% endmath %}
+
+where {%m%}p_i{%em%} is the proportion of the ith target variable in the set. Entropy always ranges between 0 (minimum disorder) and 1 (maximum disorder).
+
+As an exercise, let's calculate {%m%}S{%em%} for the whole dataset:
+
+{% math %}
+\begin{align}
+S &= -\sum_{i \in \{G,H\}} p_i \ \log(p_i) \\
+&= -p_{G} \log(p_{G}) - p_{H} \log(p_{H}) \\
+&= -(0.5)\log(0.5) - (0.5)\log(0.5) \\
+&= 1
+\end{align}
+{% endmath %}
+
+This tells us that a set whose samples are equally divided among the target's values is maximally disordered.
+
+If we have two or more target classes, the equation above generalizes as follows:
+
+{% math %}
+S = -\sum_{i \in V_t} p_i \log(p_i)
+{% endmath %}
+
+where {%m%}V_t{%em%} is the set of unique values of the target variable.
+
+It's easy to see that the number of elements in {%m%}V_t{%em%} is equal to the number of terms in the summation.
+
+Classifying datasets with categorical attributes is all about segmenting data in a way that the resulting subsets have lower entropy than the whole dataset, all without penalizing the model's performance when it's time to classify unknown data (i.e., prevent the model from overfitting).
+
+## Information Gain
+
+The informativeness of a feature can be measured using the concept of information gain, which can be defined using entropy. Consider a dataset which we call the _parent_, and we'd like to know how well a certain feature classifies the elements contained in the parent. 
+
+We define the information gain {%m%}I_G{%em%} of a feature {%m%}G{%em%} on some parent dataset as
+
+{% math %}
+I_G = S_p - \sum_{j \in V_f} P_j S_j
+{% endmath %}
+
+where {%m%}V_G{%em%} is the set of unique values of feature {%m%}G{%em%}, {%m%}S_p{%em%} is the entropy of the parent set, {%m%}P_j{%em%} is the proportion of instances belonging to the {%m%}j{%em%}th value of the considered feature, and {%m%}S_j{%em%} is the entropy of the set whose elements have the {%m%}j{%em%}th value of the feature.
+
+Now let's apply the definition of information gain {%m%}I{%em%} for every feature in our dataset above. 
+
+### Information Gain {%m%}I_P{%em%}
+
+The information gain for Feature {%m%}P{%em%}, whose values are the set {%m%}{a, b}{%em%}, is
+
+{% math %}
+I_P = S_p - \sum_{j \in \{a, b\}} P_j S_j
+{% endmath %}
+
+{%m%}P_a{%em%} and {%m%}P_b{%em%} in the summation are the proportion of instances where Feature {%m%}Q{%em%} has values {%m%}a{%em%} and {%m%}b{%em%}, respectively.
+
+{% math %}
+P_a = \frac{3}{6} = 0.5 \\
+P_b = \frac{3}{6} = 0.5
+{% endmath %}
+
+Now {%m%}S_a{%em%} and {%m%}S_b{%em%} are the entropies of the subsets whose instances have Feature {%m%}Q{%em%} equal to {%m%}a{%em%} and {%m%}b{%em%}, respectively.
+
+{% math %}
+\begin{align}
+S_a &= -\sum_{i \in \{G,H\}} p_{a,i} \ \log(p_{a,i}) \\
+&= -p_{G} \log(p_{G}) - p_{H} \log(p_{H}) \\
+&= -\frac{2}{3} \log\left(\frac{2}{3}\right) - \frac{1}{3} \log \left(\frac{1}{3}\right) \\
+&= 0.918 \\
+\\
+S_b &= -\sum_{i \in \{G,H\}} p_{b,i} \ \log(p_{b,i}) \\
+&= -p_{G} \log(p_{G}) - p_{H} \log(p_{H}) \\
+&= -\frac{1}{3} \log\left(\frac{1}{3}\right) - \frac{2}{3} \log \left(\frac{2}{3}\right) \\
+&= 0.918
+\end{align}
+{% endmath %}
+
+Thus, the information gain for Feature {%m%}P{%em%} is
+
+{% math %}
+\begin{align}
+I_P &= 1 - [(0.5)(0.918) + (0.5)(0.918)] \\
+&= 0.541
+\end{align}
+{% endmath %}
+
+### Information Gain {%m%}I_Q{%em%}
+
+Given the following values,
+
+{% math %}
+\begin{align}
+P_c &= \frac{2}{6} \\
+P_d &= \frac{4}{6} \\
+S_c &= 1 \\
+S_d &= 1 
+\end{align}
+{% endmath %}
+
+we see that the value of {%m%}I_Q{%em%} is zero.
+
+This means that there is no information gained when using Feature {%m%}Q{%em%} to classify the dataset.
+
+### Information Gain {%m%}I_R{%em%}
+
+Given the following values,
+
+{% math %}
+\begin{align}
+P_e &= \frac{3}{6} \\
+P_f &= \frac{3}{6} \\
+S_e &= 0 \\
+S_f &= 0
+\end{align}
+{% endmath %}
+
+we see that the value of {%m%}I_R{%em%} is 1, the highest information gain among all the features.
+
+Using the definitions and tools outlined above, we can now formally state why Feature {%m%}R{%em%} is the most informative attribute. It's because it has the highest information gain among all the features in the dataset.
+
+## What about numeric features?
+
+We may begin to wonder about regression problems, where the target variable is a numeric one instead of a categorical one. How do we calculate for the most informative attribute in this case?
+
+Information gain still makes sense here. But it must represent a numerical feature's "closeness" to the target variable. Instead of using entropy as a measure of disorder (or order) with regards to the categorical target values, we use _variance_ as a measure of closeness to the target value.
+
+A feature will have a high variance if its values do not behave as the target values behave. Low variance occurs when the feature increases (decreases) in value, the target also increases (decrease) in value. In other words, the counterpart of information gain in regression problems is _correlation_.
+
+Here's a table outlining which quantities are analogous to each other between classification and regression problems.
+
+{% marginnote %}
+
+|                | Measure of Orderness | Measure of Informativeness |
+|:---------------|:---------------------|:---------------------------|
+| Classification | Entropy              | Information Gain           |
+| Regression     | Variance             | Correlation                |
+
+Hope this was insightful! {%m%}_\square{%em%}
