@@ -24,4 +24,4 @@ page:
   extension: md
 editor: gvim
 git:
-  branch: gh-pages
+  branch: master
