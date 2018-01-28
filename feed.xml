@@ -5,10 +5,33 @@
     <description>Data Scientist and Software Engineer</description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 08 Jan 2018 17:54:14 -0500</pubDate>
-    <lastBuildDate>Mon, 08 Jan 2018 17:54:14 -0500</lastBuildDate>
+    <pubDate>Sat, 27 Jan 2018 20:26:36 -0500</pubDate>
+    <lastBuildDate>Sat, 27 Jan 2018 20:26:36 -0500</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
-    
+
+      <item>
+        <title>Using Breaks To Get More Deep Work Done</title>
+        <description>&lt;p&gt;It’s a great thing to constantly have goals that require prolonged periods of deep concentration. This is something I always look forward to. Deep work gives us a sense of great accomplishment when we’re finished, as well as having expanded our expertise on the domains we’ve tackled during the process.&lt;/p&gt;
+
+&lt;p&gt;But of course, many of us don’t buy into the “delayed gratification” thing perhaps due to biological and historical reasons&lt;label for=&quot;history-drag&quot; class=&quot;margin-toggle sidenote-number&quot;&gt;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;history-drag&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;sidenote&quot;&gt;Sadly, many of us never liked school in the past, and would be happy to never go back to school again. &lt;/span&gt;. Nature, by default, always follows the path of lowest energy and/or least resistance. &lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;We are all victims of this natural tendency. I’d like to think of myself as oftentimes productive, but there are down days as well when I just choose to rest or perform easy, quick tasks rather than dive into deep work, knowing that I’ll be struggling and tiring myself out with some problem or some topic that’s requires effort to comprehend.&lt;/p&gt;
+
+&lt;p&gt;I usually go into deep work sessions without a system that tracks my remaining willpower and energy level. I don’t know how if there’s a way to measure willpower and energy left for deep work, but I do know that taking timed, regular breaks tremendously help prolong our capacity for it, which leads to us getting closer to our deep work goals.&lt;/p&gt;
+
+&lt;p&gt;So three weeks ago I experimented with incorporating the Pomodoro Technique in different aspects of my life: at work, in my studies, and for my leisure reading&lt;label for=&quot;lifelong-learning&quot; class=&quot;margin-toggle sidenote-number&quot;&gt;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;lifelong-learning&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;sidenote&quot;&gt;I’m committed to lifelong learning. I’ve developed a habit of setting aside time to read and to learn new skills outside of school and the workplace. &lt;/span&gt;.&lt;/p&gt;
+
+&lt;p&gt;I think the system’s 25-minute focus sessions are not difficult to pull off. In fact, they “feel” too short when I’m gaining progress and insights into an interesting skill or topic. But I think the most important benefit of Pomodoro is not the focus times, but the breaks. I’m reminded in a timed, regular way, to take a breaks in order to recharge, cool down, and let things sink in.&lt;/p&gt;
+
+&lt;p&gt;It’s been working great for me so far, and I’m able to cover about 1.5-2x more ground when doing deep work. So for everyone constantly struggling with deep work, but are also driven by it, the gist is to find a system that can help take care of your willpower by reminding you to take breaks in regular time intervals.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 27 Jan 2018 00:00:00 -0500</pubDate>
+        <link>/articles/18/deep-work-taking-breaks</link>
+        <guid isPermaLink="true">/articles/18/deep-work-taking-breaks</guid>
+
+
+      </item>
+
       <item>
         <title>How Are Bubbles Formed?</title>
         <description>&lt;p&gt;I’ve always thought of a bubble as &lt;strong&gt;a compounded result of residual greed when the optimism of the many are perpetually validated&lt;/strong&gt;.&lt;/p&gt;
@@ -56,10 +79,10 @@
         <pubDate>Mon, 08 Jan 2018 00:00:00 -0500</pubDate>
         <link>/articles/18/how-are-bubbles-formed</link>
         <guid isPermaLink="true">/articles/18/how-are-bubbles-formed</guid>
-        
-        
+
+
       </item>
-    
+
       <item>
         <title>On Change vs. Being Who You Are</title>
         <description>&lt;p&gt;One of the things I’ve more understood lately was the concept of adapting how I behave to the context I was in. I’m aware that I’ve been doing this, but I was also constantly questioning it.&lt;/p&gt;
@@ -86,10 +109,10 @@ Step out of your bubble once in a while, for your own good and self-improvement.
         <pubDate>Sun, 20 Aug 2017 00:00:00 -0400</pubDate>
         <link>/articles/17/changing-your-behaviour-not-who-you-are</link>
         <guid isPermaLink="true">/articles/17/changing-your-behaviour-not-who-you-are</guid>
-        
-        
+
+
       </item>
-    
+
       <item>
         <title>Machine Learning: Entropy and Classification</title>
         <description>&lt;h2 id=&quot;a-simple-classification-example&quot;&gt;A Simple Classification Example&lt;/h2&gt;
@@ -268,7 +291,7 @@ I_P &amp;= 1 - [(0.5)(0.918) + (0.5)(0.918)] \\
 P_c &amp;= \frac{2}{6} \\
 P_d &amp;= \frac{4}{6} \\
 S_c &amp;= 1 \\
-S_d &amp;= 1 
+S_d &amp;= 1
 \end{align}
 &lt;/script&gt;&lt;/div&gt;
 
@@ -332,10 +355,10 @@ S_f &amp;= 0
         <pubDate>Sun, 02 Apr 2017 00:00:00 -0400</pubDate>
         <link>/articles/17/machine-learning-entropy-and-classification</link>
         <guid isPermaLink="true">/articles/17/machine-learning-entropy-and-classification</guid>
-        
-        
+
+
       </item>
-    
+
       <item>
         <title>MySQL: Columns as Ordered Week Dates</title>
         <description>&lt;p&gt;Let’s say you have data containing some metrics and their values across an ordered set of dates in a week. Since most screens are longer horizontally than vertically, it’s sometimes better to present data where one metric lies in a row and the dates lie in columns, rather than the usual way around.&lt;/p&gt;
@@ -540,10 +563,10 @@ S_f &amp;= 0
         <pubDate>Tue, 08 Mar 2016 00:00:00 -0500</pubDate>
         <link>/articles/16/pivoting-mysql-columns-as-dates</link>
         <guid isPermaLink="true">/articles/16/pivoting-mysql-columns-as-dates</guid>
-        
-        
+
+
       </item>
-    
+
       <item>
         <title>Deriving the Normal Equation</title>
         <description>&lt;p&gt;Consider a linear model&lt;/p&gt;
@@ -716,10 +739,10 @@ X^T X \vec{\theta} - X^T \vec{y} = 0
         <pubDate>Sun, 22 Nov 2015 00:00:00 -0500</pubDate>
         <link>/articles/15/deriving-normal-equation</link>
         <guid isPermaLink="true">/articles/15/deriving-normal-equation</guid>
-        
-        
+
+
       </item>
-    
+
       <item>
         <title>A Beginner's Guide on Using Data to Assess Business Performance</title>
         <description>&lt;p&gt;Running an online business that’s growing slower than projected is never an ideal scenario. What can tremendously help diagnose the problem is to have data and know how to gain insights from it. It is only through the collection and analysis of data where you can free yourself from guesswork, start validating assumptions, and gain insights on how you should be operating your business. &lt;!--more--&gt;&lt;/p&gt;
@@ -857,9 +880,9 @@ An often overlooked mindset that online businesses make when it comes to figurin
         <pubDate>Tue, 01 Sep 2015 00:00:00 -0400</pubDate>
         <link>/articles/15/beginners-guide-using-data-assess-business-performance</link>
         <guid isPermaLink="true">/articles/15/beginners-guide-using-data-assess-business-performance</guid>
-        
-        
+
+
       </item>
-    
+
   </channel>
 </rss>
