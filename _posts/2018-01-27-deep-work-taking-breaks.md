@@ -17,3 +17,5 @@ So three weeks ago I experimented with incorporating the Pomodoro Technique in d
 I think the system's 25-minute focus sessions are not difficult to pull off. In fact, they "feel" too short when I'm gaining progress and insights into an interesting skill or topic. But I think the most important benefit of Pomodoro is not the focus times, but the breaks. I'm reminded in a timed, regular way, to take a breaks in order to recharge, cool down, and let things sink in.
 
 It's been working great for me so far, and I'm able to cover about 1.5-2x more ground when doing deep work. So for everyone constantly struggling with deep work, but are also driven by it, the gist is to find a system that can help take care of your willpower by reminding you to take breaks in regular time intervals.
+
+It may seem counterintuitive, but if I want to learn things faster and be more efficient during the process, I have to learn (or be reminded) to regularly pause.
