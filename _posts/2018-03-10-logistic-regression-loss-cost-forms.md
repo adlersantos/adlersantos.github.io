@@ -19,7 +19,7 @@ where {%m%}\hat{y} = \sigma(W^\text{T} X + b){%em%} is the sigmoid of the linear
 \sigma(z) = \frac{1}{1 + e^{-z}}.
 {% endmath %}
 
-To understand why {%m%}\mathcal{L}{%em%} and {%m%}J{%em%} take such forms, first note that {%m%}\hat{y}{%em%} is the probability of the binary classification variable {%m%}y{%em%} to be equal to a positive example ({%m%}y = 1{%em%}). <!--more--> This means for a single example {%m%}x{%em%}, {%m%}\hat{y}{%em%} takes the form {%m%}\hat{y} = p(y|x){%em%} if {%m%}y=1{%em%}. The other condition is when {%m%}y = 0{%em%}, where we want {%m%}\hat{y}{%em%} to also be equal to zero. To satisfy both of these conditions, we define {%m%}p(y|x){%em%} as:
+To understand why {%m%}\mathcal{L}{%em%} and {%m%}J{%em%} take such forms, first note that {%m%}\hat{y}{%em%} is the probability of the binary classification variable {%m%}y{%em%} to be equal to a positive example ({%m%}y = 1{%em%}). <!--more--> This means for a single example {%m%}x{%em%}, {%m%}\hat{y}{%em%} takes the form {%m%}\hat{y} = p(y|x){%em%} if {%m%}y=1{%em%}. The other condition is when {%m%}y = 0{%em%}, where we want the probability to be equal to zero. To satisfy both of these conditions, we define {%m%}p(y|x){%em%} as:
 
 {% math %}
 p(y|x) = 
@@ -40,7 +40,7 @@ You can check this for yourself using {%m%}y = 1{%em%} or {%m%}y = 0{%em%}.
 Now, let's consider the idea of applying a logarithm on probabilities. The probability defined above for a single example is simple enough, but if you'd like to do maximum likelihood estimation for a set of examples, then we have to consider some "overall probability" value. In probability theory, when two events {%m%}A{%em%} and {%m%}B{%em%} are independent, then the probability of them both occurring (their intersection) is given by
 
 {% math %}
-P(A \cup B) = P(A) \cdot P(B)
+P(A \cap B) = P(A) \cdot P(B)
 {% endmath %}
 
 In most cases, it's safe to assume that every example in your training set occurred independently of each other. Thus the probability {%m%}P_{train}{%em%} for a training set of {%m%}m{%em%} samples is
