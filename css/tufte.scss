@@ -76,10 +76,11 @@ p > a { @if $link-style == underline
     }
   }
 
-body { width: 87.5%;
+body {
        margin-left: auto;
        margin-right: auto;
        padding-left: 12.5%;
+       padding-right: 12.5%;
        font-family: et-bembo, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
        background-color: $bg-color;
        color: $text-color;
@@ -93,7 +94,7 @@ h1 { font-weight: 400;
      margin-top: 1.568rem;
      margin-bottom: 1.568rem;
      font-size: 2.5rem;
-     line-height: 0.784; }
+     line-height: 1.0; }
 
 h2 { font-style: italic;
      font-weight: 400;
