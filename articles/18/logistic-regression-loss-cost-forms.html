@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>How the loss and cost functions got their forms in logistic regression</title>
+  <meta name="description" content="In logistic regression, the loss function ​ and the cost function J take the formswhere ​ is the sigmoid of the linear superposition of the features represen...">
+
+  <!-- Google Fonts loaded here depending on setting in _data/options.yml true loads font, blank does not-->
+  
+    <link href='//fonts.googleapis.com/css?family=Lato:400,400italic' rel='stylesheet' type='text/css'>
+  
+  
+  <!-- Load up MathJax script if needed ... specify in /_data/options.yml file-->
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+  <link rel="stylesheet" type="text/css" href="/css/tufte.css">
+  <!-- <link rel="stylesheet" type="text/css" href="/css/print.css" media="print"> -->
+
+  <link rel="canonical" href="/articles/18/logistic-regression-loss-cost-forms">
+
+  <link rel="alternate" type="application/rss+xml" title="Adler Santos" href="/feed.xml" />
+</head>
+
+  <body class="full-width">
+    <!--- Header and nav template site-wide -->
+<header>
+  <nav class="group">
+  	<a href="/"><img class="badge" src="/assets/img/avatar.png" alt="CH"></a>
+		
+			
+  	
+			
+		    
+		      <a href="/">Writings</a>
+		    
+	    
+  	
+			
+  	
+			
+		    
+		      <a href="/about/">About</a>
+		    
+	    
+  	
+			
+		    
+		      <a href="/css/print.css"></a>
+		    
+	    
+  	
+			
+  	
+	</nav>
+</header>
+
+    <h1>How the loss and cost functions got their forms in logistic regression</h1>
+    <article>
+      <p>In logistic regression, the loss function <span>​<script type="math/tex">\mathcal{L}(\hat{y}, y)</script></span> and the cost function J take the forms</p>
+
+<div class="mathblock"><script type="math/tex; mode=display">
+\begin{align}
+\mathcal{L}(\hat{y}, y) &= - \left(y \log (\hat{y}) + (1 - y) \log (1 - \hat{y}) \right) \\
+J &= \frac{1}{m} \sum_{i=1}^m \mathcal{L}\left(\hat{y}^{(i)}, y^{(i)}\right)
+\end{align}
+</script></div>
+
+<p>where <span>​<script type="math/tex">\hat{y} = \sigma(W^\text{T} X + b)</script></span> is the sigmoid of the linear superposition of the features represented in matrix form, with <span>​<script type="math/tex">W</script></span> as the vector of the feature weights, and <span>​<script type="math/tex">b</script></span> as the intercept term. The sigmoid of some function <span>​<script type="math/tex">z</script></span> is defined as</p>
+
+<div class="mathblock"><script type="math/tex; mode=display">
+\sigma(z) = \frac{1}{1 + e^{-z}}.
+</script></div>
+
+<p>To understand why <span>​<script type="math/tex">\mathcal{L}</script></span> and <span>​<script type="math/tex">J</script></span> take such forms, first note that <span>​<script type="math/tex">\hat{y}</script></span> is the probability of the binary classification variable <span>​<script type="math/tex">y</script></span> to be equal to a positive example (<span>​<script type="math/tex">y = 1</script></span>). <!--more--> This means for a single example <span>​<script type="math/tex">x</script></span>, <span>​<script type="math/tex">\hat{y}</script></span> takes the form <span>​<script type="math/tex">\hat{y} = p(y|x)</script></span> if <span>​<script type="math/tex">y=1</script></span>. The other condition is when <span>​<script type="math/tex">y = 0</script></span>, where we want <span>​<script type="math/tex">\hat{y}</script></span> to also be equal to zero. To satisfy both of these conditions, we define <span>​<script type="math/tex">p(y|x)</script></span> as:</p>
+
+<div class="mathblock"><script type="math/tex; mode=display">
+p(y|x) = 
+\begin{cases}
+    \hat{y} & (\text{if } y = 1)\\
+    1 - \hat{y} & (\text{if } y = 0)
+\end{cases}
+</script></div>
+
+<p>Another way to write <span>​<script type="math/tex">p(y|x)</script></span> is as follows:</p>
+
+<div class="mathblock"><script type="math/tex; mode=display">
+p(y|x) = \hat{y}^{y} (1 - \hat{y})^{(1 - y)}
+</script></div>
+
+<p>You can check this for yourself using <span>​<script type="math/tex">y = 1</script></span> or <span>​<script type="math/tex">y = 0</script></span>.</p>
+
+<p>Now, let’s consider the idea of applying a logarithm on probabilities. The probability defined above for a single example is simple enough, but if you’d like to do maximum likelihood estimation for a set of examples, then we have to consider some “overall probability” value. In probability theory, when two events <span>​<script type="math/tex">A</script></span> and <span>​<script type="math/tex">B</script></span> are independent, then the probability of them both occurring (their intersection) is given by</p>
+
+<div class="mathblock"><script type="math/tex; mode=display">
+P(A \cup B) = P(A) \cdot P(B)
+</script></div>
+
+<p>In most cases, it’s safe to assume that every example in your training set occurred independently of each other. Thus the probability <span>​<script type="math/tex">P_{train}</script></span> for a training set of <span>​<script type="math/tex">m</script></span> samples is</p>
+
+<div class="mathblock"><script type="math/tex; mode=display">
+\begin{align}
+P_{train} &= P(y^{(1)}|x^{(1)}) \cdot P(y^{(2)}|x^{(2)}) \ldots P(y^{(m)}|x^{(m)}) \\
+         &= \prod_{i=1}^m p(y^{(i)})
+\end{align}
+</script></div>
+
+<p>We can use probabilities outrightly, but using the logarithm of probabilities has many practical advantages. One advantage is that multiplication is more computationally expensive than addition. We’ll see shortly how applying the log translates the above from a multiplication problem to an addition problem. Also, computers have limited floating point accuracy, thus when a computer multiplies a very large set of probabilities (recall that they’re valued from zero to one), you may end up with a value very close or equal to zero, which is far from ideal. You will not encounter this weird behaviour if you apply the logarithm.</p>
+
+<p>Let’s apply the logarithm to <span>​<script type="math/tex">p(y|x)</script></span>. Using the fact that <span>​<script type="math/tex">\log(ab) = \log(a) + \log(b)</script></span> and <span>​<script type="math/tex">\log(a^b) = b \log(a)</script></span>, we get</p>
+
+<div class="mathblock"><script type="math/tex; mode=display">
+\begin{align}
+\log p(y|x) &= \log\left(\hat{y}^y (1 - \hat{y})^{(1 - y)}\right) \\ 
+           &= \log\left(\hat{y}^y\right) + \log\left((1 - \hat{y})^{(1 - y)}\right) \\
+           &= y \log \hat{y} + (1 - y) \log(1 - \hat{y})
+\end{align}
+</script></div>
+
+<p>This is similar in form to the loss function of logistic regression for a single example, except for the minus sign. Logistic regression includes the minus sign in order for the cost function to be minimized.</p>
+
+<p>How about for <span>​<script type="math/tex">P_{train}</script></span>? By applying the multiplication rule for probabilities, it turns out that <span>​<script type="math/tex">\log(P_{train})</script></span> is just the sum of the loss functions of every training example:</p>
+
+<div class="mathblock"><script type="math/tex; mode=display">
+\begin{align}
+\log\left(P_{train}\right) &= \log\left(\prod_{i=1}^m p(y^{(i)})\right) \\
+              &= \log\left(p(y^{(1)})\right) + \log\left(p(y^{(2)})\right) + \cdots + \log\left(p(y^{(m)})\right) \\
+              &= \sum_{i=1}^m \log\left(p(y^{(i)})\right) \\
+              &= \sum_{i=1}^m y^{(i)} \log \hat{y}^{(i)} + (1 - y^{(i)}) \log(1 - \hat{y}^{(i)}) 
+\end{align}
+</script></div>
+
+<p>Looks familiar? Recall from above that the cost function <span>​<script type="math/tex">J</script></span> has the form</p>
+
+<div class="mathblock"><script type="math/tex; mode=display">
+\begin{align}
+J &= \frac{1}{m} \sum_{i=1}^m - \left( y^{(i)} \log \hat{y}^{(i)} + (1 - y^{(i)}) \log(1 - \hat{y}^{(i)}) \right) \\
+  &= \frac{1}{m} \sum_{i=1}^m \mathcal{L}\left(\hat{y}^{(i)}, y^{(i)}\right)
+\end{align}
+</script></div>
+
+<p>Thus, <span>​<script type="math/tex">\log\left(P_{train}\right)</script></span> is the cost function <span>​<script type="math/tex">J</script></span> without the negative sign and without the scaling factor <span>​<script type="math/tex">(1/m)</script></span>:</p>
+
+<div class="mathblock"><script type="math/tex; mode=display">
+\begin{align}
+\log\left(P_{train}\right) &= -\sum_{i=1}^m \mathcal{L}\left(\hat{y}^{(i)}, y^{(i)}\right) \\
+                           &= - m J
+
+\end{align}
+</script></div>
+
+<p>The factor <span>​<script type="math/tex">(1/m)</script></span> found in <span>​<script type="math/tex">J</script></span> is for scaling purposes, and to allow us to treat the cost function as the average of the loss functions for all <span>​<script type="math/tex">m</script></span> training examples.</p>
+
+
+    </article>
+    <span class="print-footer">How the loss and cost functions got their forms in logistic regression - March 10, 2018 - Adler Santos</span>
+    <footer>
+  <hr class="slender">
+  <ul class="footer-links">
+    
+      <li>
+        <a href="//www.twitter.com/adlersantos"><span class="icon-twitter"></span></a>
+      </li>
+    
+  </ul>
+<div class="credits">
+<span>&copy; 2018 &nbsp;&nbsp;ADLER SANTOS</span></br> <br>
+<span>Powered by <a href="//github.com/clayh53/tufte-jekyll">Tufte theme for Jekyll</a>.</span>
+</div>
+</footer>
+
+  </body>
+</html>

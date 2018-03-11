@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>MySQL: Columns as Ordered Week Dates</title>
+  <meta name="description" content="Let’s say you have data containing some metrics and their values across an ordered set of dates in a week. Since most screens are longer horizontally than ve...">
+
+  <!-- Google Fonts loaded here depending on setting in _data/options.yml true loads font, blank does not-->
+  
+    <link href='//fonts.googleapis.com/css?family=Lato:400,400italic' rel='stylesheet' type='text/css'>
+  
+  
+  <!-- Load up MathJax script if needed ... specify in /_data/options.yml file-->
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+  <link rel="stylesheet" type="text/css" href="/css/tufte.css">
+  <!-- <link rel="stylesheet" type="text/css" href="/css/print.css" media="print"> -->
+
+  <link rel="canonical" href="/articles/16/pivoting-mysql-columns-as-dates">
+
+  <link rel="alternate" type="application/rss+xml" title="Adler Santos" href="/feed.xml" />
+</head>
+
+  <body>
+    <!--- Header and nav template site-wide -->
+<header>
+  <nav class="group">
+  	<a href="/"><img class="badge" src="/assets/img/avatar.png" alt="CH"></a>
+		
+			
+  	
+			
+		    
+		      <a href="/">Writings</a>
+		    
+	    
+  	
+			
+  	
+			
+		    
+		      <a href="/about/">About</a>
+		    
+	    
+  	
+			
+		    
+		      <a href="/css/print.css"></a>
+		    
+	    
+  	
+			
+  	
+	</nav>
+</header>
+
+    <article class="group">
+      <h1>MySQL: Columns as Ordered Week Dates</h1>
+<!-- <p class="subtitle">March 8, 2016</p> -->
+
+<p>Let’s say you have data containing some metrics and their values across an ordered set of dates in a week. Since most screens are longer horizontally than vertically, it’s sometimes better to present data where one metric lies in a row and the dates lie in columns, rather than the usual way around.</p>
+
+<p>The usual way we show tables is like this:</p>
+
+<p><label for="" class="margin-toggle"> ⊕</label><input type="checkbox" class="margin-toggle" /><span class="marginnote"> </span></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">date</th>
+      <th style="text-align: left">Visitors</th>
+      <th style="text-align: left">Orders</th>
+      <th style="text-align: left">Revenue</th>
+      <th style="text-align: left">Metric4</th>
+      <th style="text-align: left">etc.</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">2016-02-28</td>
+      <td style="text-align: left">1423</td>
+      <td style="text-align: left">19</td>
+      <td style="text-align: left">900</td>
+      <td style="text-align: left">…</td>
+      <td style="text-align: left">…</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2016-02-29</td>
+      <td style="text-align: left">1534</td>
+      <td style="text-align: left">38</td>
+      <td style="text-align: left">2037</td>
+      <td style="text-align: left">…</td>
+      <td style="text-align: left">…</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2016-03-01</td>
+      <td style="text-align: left">2645</td>
+      <td style="text-align: left">57</td>
+      <td style="text-align: left">5612</td>
+      <td style="text-align: left">…</td>
+      <td style="text-align: left">…</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">…</td>
+      <td style="text-align: left">…</td>
+      <td style="text-align: left">…</td>
+      <td style="text-align: left">…</td>
+      <td style="text-align: left">…</td>
+      <td style="text-align: left">…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Because most screens are in landscape mode and because we read from left to right, there are times when it makes sense to pivot the table as follows:</p>
+
+<p><label for="" class="margin-toggle"> ⊕</label><input type="checkbox" class="margin-toggle" /><span class="marginnote"> </span></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>metric</th>
+      <th>2016-02-28</th>
+      <th>2016-02-29</th>
+      <th>2016-03-01</th>
+      <th>…</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Visitors</td>
+      <td>1423</td>
+      <td>1534</td>
+      <td>2645</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td>Orders</td>
+      <td>19</td>
+      <td>38</td>
+      <td>57</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td>Revenue</td>
+      <td>900</td>
+      <td>2037</td>
+      <td>5612</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td>Metric4</td>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td>Metric5</td>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td>etc.</td>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This may not be “tidy data” as defined by Hadley Wickham in his <a href="https://www.jstatsoft.org/article/view/v059i10">excellent paper</a>, but pivoting as such results in easier navigation/scrolling when you have more metrics than dates. <!--more--></p>
+
+<p>For example, let’s say you have a weekly report with 7 consecutive dates from Monday to Sunday of that week, and 30 metrics. You’ve seen the 7-day trend on the first metric, and would like to see the trend on the 27th metric. All you need to do is scroll down to the 27th metric, and read as you would (from left to right), to see if there’s any trend seen across that week.</p>
+
+<p>Here’s the full MySQL query for the pivot table above, where the rows are metrics and the columns comprise of an ordered set of dates in a week.</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">SELECT</span>
+    <span class="n">metric</span>
+    <span class="p">,</span> <span class="k">SUM</span><span class="p">(</span><span class="k">CASE</span> <span class="k">WHEN</span> <span class="n">DAYOFWEEK</span><span class="p">(</span><span class="n">date</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">THEN</span> <span class="n">value</span> <span class="k">ELSE</span> <span class="mi">0</span> <span class="k">END</span><span class="p">)</span>
+    <span class="p">,</span> <span class="k">SUM</span><span class="p">(</span><span class="k">CASE</span> <span class="k">WHEN</span> <span class="n">DAYOFWEEK</span><span class="p">(</span><span class="n">date</span><span class="p">)</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">THEN</span> <span class="n">value</span> <span class="k">ELSE</span> <span class="mi">0</span> <span class="k">END</span><span class="p">)</span>
+    <span class="p">,</span> <span class="k">SUM</span><span class="p">(</span><span class="k">CASE</span> <span class="k">WHEN</span> <span class="n">DAYOFWEEK</span><span class="p">(</span><span class="n">date</span><span class="p">)</span> <span class="o">=</span> <span class="mi">3</span> <span class="k">THEN</span> <span class="n">value</span> <span class="k">ELSE</span> <span class="mi">0</span> <span class="k">END</span><span class="p">)</span>
+    <span class="p">,</span> <span class="k">SUM</span><span class="p">(</span><span class="k">CASE</span> <span class="k">WHEN</span> <span class="n">DAYOFWEEK</span><span class="p">(</span><span class="n">date</span><span class="p">)</span> <span class="o">=</span> <span class="mi">4</span> <span class="k">THEN</span> <span class="n">value</span> <span class="k">ELSE</span> <span class="mi">0</span> <span class="k">END</span><span class="p">)</span>
+    <span class="p">,</span> <span class="k">SUM</span><span class="p">(</span><span class="k">CASE</span> <span class="k">WHEN</span> <span class="n">DAYOFWEEK</span><span class="p">(</span><span class="n">date</span><span class="p">)</span> <span class="o">=</span> <span class="mi">5</span> <span class="k">THEN</span> <span class="n">value</span> <span class="k">ELSE</span> <span class="mi">0</span> <span class="k">END</span><span class="p">)</span>
+    <span class="p">,</span> <span class="k">SUM</span><span class="p">(</span><span class="k">CASE</span> <span class="k">WHEN</span> <span class="n">DAYOFWEEK</span><span class="p">(</span><span class="n">date</span><span class="p">)</span> <span class="o">=</span> <span class="mi">6</span> <span class="k">THEN</span> <span class="n">value</span> <span class="k">ELSE</span> <span class="mi">0</span> <span class="k">END</span><span class="p">)</span>
+    <span class="p">,</span> <span class="k">SUM</span><span class="p">(</span><span class="k">CASE</span> <span class="k">WHEN</span> <span class="n">DAYOFWEEK</span><span class="p">(</span><span class="n">date</span><span class="p">)</span> <span class="o">=</span> <span class="mi">7</span> <span class="k">THEN</span> <span class="n">value</span> <span class="k">ELSE</span> <span class="mi">0</span> <span class="k">END</span><span class="p">)</span>
+<span class="k">FROM</span>
+    <span class="p">(</span>
+        <span class="k">SELECT</span>
+            <span class="n">metrics</span><span class="p">.</span><span class="n">name</span> <span class="k">AS</span> <span class="s1">'metric'</span>
+            <span class="p">,</span> <span class="n">metrics</span><span class="p">.</span><span class="n">rank</span> <span class="k">AS</span> <span class="s1">'rank'</span>
+            <span class="p">,</span> <span class="n">this_week</span><span class="p">.</span><span class="n">date</span> <span class="k">AS</span> <span class="s1">'date'</span>
+            <span class="p">,</span> <span class="p">(</span>
+                <span class="k">CASE</span> <span class="n">metrics</span><span class="p">.</span><span class="n">name</span>
+                <span class="k">WHEN</span> <span class="s1">''</span>         <span class="k">THEN</span> <span class="n">this_week</span><span class="p">.</span><span class="n">date</span>
+                <span class="k">WHEN</span> <span class="s1">'Visitors'</span> <span class="k">THEN</span> <span class="n">traffic</span><span class="p">.</span><span class="n">visitors</span>
+                <span class="k">WHEN</span> <span class="s1">'Orders'</span>   <span class="k">THEN</span> <span class="n">orders</span><span class="p">.</span><span class="n">num</span>
+                <span class="k">WHEN</span> <span class="s1">'Revenue'</span>  <span class="k">THEN</span> <span class="n">orders</span><span class="p">.</span><span class="n">revenue</span>
+                <span class="k">WHEN</span> <span class="s1">'Metric4'</span>  <span class="k">THEN</span> <span class="k">table</span><span class="p">.</span><span class="n">metric4</span>
+                <span class="k">WHEN</span> <span class="s1">'Metric5'</span>  <span class="k">THEN</span> <span class="k">table</span><span class="p">.</span><span class="n">metric5</span>
+                <span class="p">...</span>
+                <span class="k">END</span>
+            <span class="p">)</span> <span class="k">AS</span> <span class="s1">'value'</span>
+        <span class="k">FROM</span>
+            <span class="p">(</span>
+                <span class="k">SELECT</span> <span class="mi">1</span> <span class="k">AS</span> <span class="n">rank</span><span class="p">,</span> <span class="s1">''</span> <span class="k">AS</span> <span class="n">name</span>
+                <span class="k">UNION</span> <span class="k">ALL</span>
+                <span class="k">SELECT</span> <span class="mi">2</span> <span class="k">AS</span> <span class="n">rank</span><span class="p">,</span> <span class="s1">'Visitors'</span> <span class="k">AS</span> <span class="n">name</span>
+                <span class="k">UNION</span> <span class="k">ALL</span>
+                <span class="k">SELECT</span> <span class="mi">3</span> <span class="k">AS</span> <span class="n">rank</span><span class="p">,</span> <span class="s1">'Orders'</span> <span class="k">AS</span> <span class="n">name</span>
+                <span class="k">UNION</span> <span class="k">ALL</span>
+                <span class="k">SELECT</span> <span class="mi">4</span> <span class="k">AS</span> <span class="n">rank</span><span class="p">,</span> <span class="s1">'Revenue'</span> <span class="k">AS</span> <span class="n">name</span>
+                <span class="k">UNION</span> <span class="k">ALL</span>
+                <span class="k">SELECT</span> <span class="mi">5</span> <span class="k">AS</span> <span class="n">rank</span><span class="p">,</span> <span class="s1">'Metric4'</span> <span class="k">AS</span> <span class="n">name</span>
+                <span class="k">UNION</span> <span class="k">ALL</span>
+                <span class="k">SELECT</span> <span class="mi">6</span> <span class="k">AS</span> <span class="n">rank</span><span class="p">,</span> <span class="s1">'Metric5'</span> <span class="k">AS</span> <span class="n">name</span>
+            <span class="p">)</span> <span class="n">metrics</span>
+            <span class="k">LEFT</span> <span class="k">JOIN</span> <span class="p">(</span>
+                <span class="k">SELECT</span> <span class="n">SUBDATE</span><span class="p">(</span><span class="n">CURDATE</span><span class="p">(),</span> <span class="n">DAYOFWEEK</span><span class="p">(</span><span class="n">CURDATE</span><span class="p">())</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="k">AS</span> <span class="s1">'date'</span>
+                <span class="k">UNION</span> <span class="k">ALL</span>
+                <span class="k">SELECT</span> <span class="n">SUBDATE</span><span class="p">(</span><span class="n">CURDATE</span><span class="p">(),</span> <span class="n">DAYOFWEEK</span><span class="p">(</span><span class="n">CURDATE</span><span class="p">())</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="k">AS</span> <span class="s1">'date'</span>
+                <span class="k">UNION</span> <span class="k">ALL</span>
+                <span class="k">SELECT</span> <span class="n">SUBDATE</span><span class="p">(</span><span class="n">CURDATE</span><span class="p">(),</span> <span class="n">DAYOFWEEK</span><span class="p">(</span><span class="n">CURDATE</span><span class="p">())</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span> <span class="k">AS</span> <span class="s1">'date'</span>
+                <span class="k">UNION</span> <span class="k">ALL</span>
+                <span class="k">SELECT</span> <span class="n">SUBDATE</span><span class="p">(</span><span class="n">CURDATE</span><span class="p">(),</span> <span class="n">DAYOFWEEK</span><span class="p">(</span><span class="n">CURDATE</span><span class="p">())</span> <span class="o">-</span> <span class="mi">4</span><span class="p">)</span> <span class="k">AS</span> <span class="s1">'date'</span>
+                <span class="k">UNION</span> <span class="k">ALL</span>
+                <span class="k">SELECT</span> <span class="n">SUBDATE</span><span class="p">(</span><span class="n">CURDATE</span><span class="p">(),</span> <span class="n">DAYOFWEEK</span><span class="p">(</span><span class="n">CURDATE</span><span class="p">())</span> <span class="o">-</span> <span class="mi">5</span><span class="p">)</span> <span class="k">AS</span> <span class="s1">'date'</span>
+                <span class="k">UNION</span> <span class="k">ALL</span>
+                <span class="k">SELECT</span> <span class="n">SUBDATE</span><span class="p">(</span><span class="n">CURDATE</span><span class="p">(),</span> <span class="n">DAYOFWEEK</span><span class="p">(</span><span class="n">CURDATE</span><span class="p">())</span> <span class="o">-</span> <span class="mi">6</span><span class="p">)</span> <span class="k">AS</span> <span class="s1">'date'</span>
+                <span class="k">UNION</span> <span class="k">ALL</span>
+                <span class="k">SELECT</span> <span class="n">SUBDATE</span><span class="p">(</span><span class="n">CURDATE</span><span class="p">(),</span> <span class="n">DAYOFWEEK</span><span class="p">(</span><span class="n">CURDATE</span><span class="p">())</span> <span class="o">-</span> <span class="mi">7</span><span class="p">)</span> <span class="k">AS</span> <span class="s1">'date'</span>
+            <span class="p">)</span> <span class="n">this_week</span> <span class="k">on</span> <span class="mi">1</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">LEFT</span> <span class="k">JOIN</span> <span class="p">(</span>
+                <span class="k">SELECT</span>
+                    <span class="k">SUM</span><span class="p">(</span><span class="n">visitors</span><span class="p">)</span> <span class="k">AS</span> <span class="s1">'visitors'</span>
+                <span class="k">FROM</span>
+                    <span class="n">some_table1</span>
+                <span class="k">GROUP</span> <span class="k">BY</span>
+                    <span class="n">date</span>
+            <span class="p">)</span> <span class="n">traffic</span> <span class="k">ON</span> <span class="n">traffic</span><span class="p">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">this_week</span><span class="p">.</span><span class="n">date</span>
+            <span class="k">LEFT</span> <span class="k">JOIN</span> <span class="p">(</span>
+                <span class="k">SELECT</span>
+                    <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">AS</span> <span class="s1">'num'</span>
+                    <span class="k">SUM</span><span class="p">(</span><span class="n">amount_paid</span><span class="p">)</span> <span class="k">AS</span> <span class="s1">'revenue'</span>
+                <span class="k">FROM</span>
+                    <span class="n">some_table2</span>
+                <span class="k">GROUP</span> <span class="k">BY</span>
+                    <span class="n">date</span>
+            <span class="p">)</span> <span class="n">orders</span> <span class="k">ON</span> <span class="n">orders</span><span class="p">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">this_week</span><span class="p">.</span><span class="n">date</span>
+    <span class="p">)</span> <span class="n">dataframe</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">metric</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">rank</span></code></pre></figure>
+
+<p>The <code class="highlighter-rouge">rank</code> variable (an integer) allows you to show the metrics in a specific order. A metric with a certain rank will be shown before another metric with a higher numbered rank.</p>
+
+<p>Hope this helps!</p>
+
+
+
+    </article>
+    <span class="print-footer">MySQL: Columns as Ordered Week Dates - March 8, 2016 - Adler Santos</span>
+    <footer>
+  <hr class="slender">
+  <ul class="footer-links">
+    
+      <li>
+        <a href="//www.twitter.com/adlersantos"><span class="icon-twitter"></span></a>
+      </li>
+    
+  </ul>
+<div class="credits">
+<span>&copy; 2018 &nbsp;&nbsp;ADLER SANTOS</span></br> <br>
+<span>Powered by <a href="//github.com/clayh53/tufte-jekyll">Tufte theme for Jekyll</a>.</span>
+</div>
+</footer>
+
+  </body>
+</html>
