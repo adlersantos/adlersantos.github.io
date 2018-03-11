@@ -76,7 +76,7 @@ J &= \frac{1}{m} \sum_{i=1}^m \mathcal{L}\left(\hat{y}^{(i)}, y^{(i)}\right)
 \sigma(z) = \frac{1}{1 + e^{-z}}.
 </script></div>
 
-<p>To understand why <span>​<script type="math/tex">\mathcal{L}</script></span> and <span>​<script type="math/tex">J</script></span> take such forms, first note that <span>​<script type="math/tex">\hat{y}</script></span> is the probability of the binary classification variable <span>​<script type="math/tex">y</script></span> to be equal to a positive example (<span>​<script type="math/tex">y = 1</script></span>). <!--more--> This means for a single example <span>​<script type="math/tex">x</script></span>, <span>​<script type="math/tex">\hat{y}</script></span> takes the form <span>​<script type="math/tex">\hat{y} = p(y|x)</script></span> if <span>​<script type="math/tex">y=1</script></span>. The other condition is when <span>​<script type="math/tex">y = 0</script></span>, where we want <span>​<script type="math/tex">\hat{y}</script></span> to also be equal to zero. To satisfy both of these conditions, we define <span>​<script type="math/tex">p(y|x)</script></span> as:</p>
+<p>To understand why <span>​<script type="math/tex">\mathcal{L}</script></span> and <span>​<script type="math/tex">J</script></span> take such forms, first note that <span>​<script type="math/tex">\hat{y}</script></span> is the probability of the binary classification variable <span>​<script type="math/tex">y</script></span> to be equal to a positive example (<span>​<script type="math/tex">y = 1</script></span>). <!--more--> This means for a single example <span>​<script type="math/tex">x</script></span>, <span>​<script type="math/tex">\hat{y}</script></span> takes the form <span>​<script type="math/tex">\hat{y} = p(y|x)</script></span> if <span>​<script type="math/tex">y=1</script></span>. The other condition is when <span>​<script type="math/tex">y = 0</script></span>, where we want the probability to be equal to zero. To satisfy both of these conditions, we define <span>​<script type="math/tex">p(y|x)</script></span> as:</p>
 
 <div class="mathblock"><script type="math/tex; mode=display">
 p(y|x) = 
@@ -97,7 +97,7 @@ p(y|x) = \hat{y}^{y} (1 - \hat{y})^{(1 - y)}
 <p>Now, let’s consider the idea of applying a logarithm on probabilities. The probability defined above for a single example is simple enough, but if you’d like to do maximum likelihood estimation for a set of examples, then we have to consider some “overall probability” value. In probability theory, when two events <span>​<script type="math/tex">A</script></span> and <span>​<script type="math/tex">B</script></span> are independent, then the probability of them both occurring (their intersection) is given by</p>
 
 <div class="mathblock"><script type="math/tex; mode=display">
-P(A \cup B) = P(A) \cdot P(B)
+P(A \cap B) = P(A) \cdot P(B)
 </script></div>
 
 <p>In most cases, it’s safe to assume that every example in your training set occurred independently of each other. Thus the probability <span>​<script type="math/tex">P_{train}</script></span> for a training set of <span>​<script type="math/tex">m</script></span> samples is</p>
