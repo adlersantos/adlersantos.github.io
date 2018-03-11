@@ -9,21 +9,19 @@
   <meta name="description" content="In logistic regression, the loss function ​ and the cost function J take the formswhere ​ is the sigmoid of the linear superposition of the features represen...">
 
   <!-- Google Fonts loaded here depending on setting in _data/options.yml true loads font, blank does not-->
-
+  
     <link href='//fonts.googleapis.com/css?family=Lato:400,400italic' rel='stylesheet' type='text/css'>
-
+  
 
   <!-- Load up MathJax script if needed ... specify in /_data/options.yml file-->
-
+  
     <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
+  
 
   <link rel="stylesheet" type="text/css" href="/css/tufte.css">
   <!-- <link rel="stylesheet" type="text/css" href="/css/print.css" media="print"> -->
 
   <link rel="canonical" href="/articles/18/logistic-regression-loss-cost-forms">
-
-  <link rel="alternate" type="application/rss+xml" title="Adler Santos" href="/feed.xml" />
 </head>
 
   <body class="full-width">
@@ -31,31 +29,29 @@
 <header>
   <nav class="group">
   	<a href="/"><img class="badge" src="/assets/img/avatar.png" alt="CH"></a>
-
-
-
-
-
+		
+			
+		    
 		      <a href="/">Writings</a>
-
-
-
-
-
-
-
-		      <a href="/about/">About</a>
-
-
-
-
-
+		    
+	    
+  	
+			
+  	
+			
+		    
+		      <a href="/about/">About Adler</a>
+		    
+	    
+  	
+			
+		    
 		      <a href="/css/print.css"></a>
-
-
-
-
-
+		    
+	    
+  	
+			
+  	
 	</nav>
 </header>
 
@@ -76,10 +72,10 @@ J &= \frac{1}{m} \sum_{i=1}^m \mathcal{L}\left(\hat{y}^{(i)}, y^{(i)}\right)
 \sigma(z) = \frac{1}{1 + e^{-z}}.
 </script></div>
 
-<p>To understand why <span>​<script type="math/tex">\mathcal{L}</script></span> and <span>​<script type="math/tex">J</script></span> take such forms, first note that <span>​<script type="math/tex">\hat{y}</script></span> is the probability of the binary classification variable <span>​<script type="math/tex">y</script></span> to be equal to a positive example (<span>​<script type="math/tex">y = 1</script></span>). <!--more--> This means for a single example <span>​<script type="math/tex">x</script></span>, <span>​<script type="math/tex">\hat{y}</script></span> takes the form <span>​<script type="math/tex">\hat{y} = p(y|x)</script></span> if <span>​<script type="math/tex">y=1</script></span>. The other condition is when <span>​<script type="math/tex">y = 0</script></span>, where we want <span>​<script type="math/tex">\hat{y}</script></span> to also be equal to zero. To satisfy both of these conditions, we define <span>​<script type="math/tex">p(y|x)</script></span> as:</p>
+<p>To understand why <span>​<script type="math/tex">\mathcal{L}</script></span> and <span>​<script type="math/tex">J</script></span> take such forms, first note that <span>​<script type="math/tex">\hat{y}</script></span> is the probability of the binary classification variable <span>​<script type="math/tex">y</script></span> to be equal to a positive example (<span>​<script type="math/tex">y = 1</script></span>). <!--more--> This means for a single example <span>​<script type="math/tex">x</script></span>, <span>​<script type="math/tex">\hat{y}</script></span> takes the form <span>​<script type="math/tex">\hat{y} = p(y|x)</script></span> if <span>​<script type="math/tex">y=1</script></span>. The other condition is when <span>​<script type="math/tex">y = 0</script></span>, where we want the probability to be equal to zero. To satisfy both of these conditions, we define <span>​<script type="math/tex">p(y|x)</script></span> as:</p>
 
 <div class="mathblock"><script type="math/tex; mode=display">
-p(y|x) =
+p(y|x) = 
 \begin{cases}
     \hat{y} & (\text{if } y = 1)\\
     1 - \hat{y} & (\text{if } y = 0)
@@ -97,7 +93,7 @@ p(y|x) = \hat{y}^{y} (1 - \hat{y})^{(1 - y)}
 <p>Now, let’s consider the idea of applying a logarithm on probabilities. The probability defined above for a single example is simple enough, but if you’d like to do maximum likelihood estimation for a set of examples, then we have to consider some “overall probability” value. In probability theory, when two events <span>​<script type="math/tex">A</script></span> and <span>​<script type="math/tex">B</script></span> are independent, then the probability of them both occurring (their intersection) is given by</p>
 
 <div class="mathblock"><script type="math/tex; mode=display">
-P(A \cup B) = P(A) \cdot P(B)
+P(A \cap B) = P(A) \cdot P(B)
 </script></div>
 
 <p>In most cases, it’s safe to assume that every example in your training set occurred independently of each other. Thus the probability <span>​<script type="math/tex">P_{train}</script></span> for a training set of <span>​<script type="math/tex">m</script></span> samples is</p>
@@ -115,7 +111,7 @@ P_{train} &= P(y^{(1)}|x^{(1)}) \cdot P(y^{(2)}|x^{(2)}) \ldots P(y^{(m)}|x^{(m)
 
 <div class="mathblock"><script type="math/tex; mode=display">
 \begin{align}
-\log p(y|x) &= \log\left(\hat{y}^y (1 - \hat{y})^{(1 - y)}\right) \\
+\log p(y|x) &= \log\left(\hat{y}^y (1 - \hat{y})^{(1 - y)}\right) \\ 
            &= \log\left(\hat{y}^y\right) + \log\left((1 - \hat{y})^{(1 - y)}\right) \\
            &= y \log \hat{y} + (1 - y) \log(1 - \hat{y})
 \end{align}
@@ -130,7 +126,7 @@ P_{train} &= P(y^{(1)}|x^{(1)}) \cdot P(y^{(2)}|x^{(2)}) \ldots P(y^{(m)}|x^{(m)
 \log\left(P_{train}\right) &= \log\left(\prod_{i=1}^m p(y^{(i)})\right) \\
               &= \log\left(p(y^{(1)})\right) + \log\left(p(y^{(2)})\right) + \cdots + \log\left(p(y^{(m)})\right) \\
               &= \sum_{i=1}^m \log\left(p(y^{(i)})\right) \\
-              &= \sum_{i=1}^m y^{(i)} \log \hat{y}^{(i)} + (1 - y^{(i)}) \log(1 - \hat{y}^{(i)})
+              &= \sum_{i=1}^m y^{(i)} \log \hat{y}^{(i)} + (1 - y^{(i)}) \log(1 - \hat{y}^{(i)}) 
 \end{align}
 </script></div>
 
@@ -161,11 +157,11 @@ J &= \frac{1}{m} \sum_{i=1}^m - \left( y^{(i)} \log \hat{y}^{(i)} + (1 - y^{(i)}
     <footer>
   <hr class="slender">
   <ul class="footer-links">
-
+    
       <li>
         <a href="//www.twitter.com/adlersantos"><span class="icon-twitter"></span></a>
       </li>
-
+    
   </ul>
 <div class="credits">
 <span>&copy; 2018 &nbsp;&nbsp;ADLER SANTOS</span></br> <br>
