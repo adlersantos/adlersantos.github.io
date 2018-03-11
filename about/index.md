@@ -1,9 +1,7 @@
 ---
 layout: full-width
-title: About
+title: About Adler
 ---
-
-# Adler Santos
 
 I'm a data scientist educated in theoretical physics with solid experience in the retail and travel industries.
 
