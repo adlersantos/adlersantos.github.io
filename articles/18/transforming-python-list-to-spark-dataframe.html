@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Transforming Python Lists into Spark Dataframes</title>
+  <meta name="description" content="Data represented as dataframes are generally much easier to transform, filter, or write to a target source. In Spark, loading or querying data from a source ...">
+
+  <!-- Google Fonts loaded here depending on setting in _data/options.yml true loads font, blank does not-->
+  
+    <link href='//fonts.googleapis.com/css?family=Lato:400,400italic' rel='stylesheet' type='text/css'>
+  
+
+  <!-- Load up MathJax script if needed ... specify in /_data/options.yml file-->
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+  <link rel="stylesheet" type="text/css" href="/css/tufte.css">
+  <!-- <link rel="stylesheet" type="text/css" href="/css/print.css" media="print"> -->
+
+  <link rel="canonical" href="/articles/18/transforming-python-list-to-spark-dataframe">
+</head>
+
+  <body class="full-width">
+    <!--- Header and nav template site-wide -->
+<header>
+  <nav class="group">
+  	<a href="/"><img class="badge" src="/assets/img/avatar.png" alt="CH"></a>
+		
+			
+		    
+		      <a href="/">Writings</a>
+		    
+	    
+  	
+			
+  	
+			
+		    
+		      <a href="/about/">About Adler</a>
+		    
+	    
+  	
+			
+		    
+		      <a href="/css/print.css"></a>
+		    
+	    
+  	
+			
+  	
+	</nav>
+</header>
+
+    <h1>Transforming Python Lists into Spark Dataframes</h1>
+    <article>
+      <p>Data represented as dataframes are generally much easier to transform, filter, or write to a target source. In Spark, loading or querying data from a source will automatically be loaded as a dataframe.</p>
+
+<p>Here’s an example of loading, querying, and writing data using PySpark and SQL:</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pyspark</span>
+
+<span class="c"># Define your SparkContext and SparkSession</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">pyspark</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">SparkContext</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="s">'host'</span><span class="p">,</span> <span class="n">appName</span><span class="o">=</span><span class="s">'Sample App'</span><span class="p">)</span>
+<span class="n">session</span> <span class="o">=</span> <span class="n">pyspark</span><span class="o">.</span><span class="n">sql</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">SparkSession</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span>
+
+<span class="s">"""
+Load your data using:
+  - spark.read.json('some/path/or/url') 
+  - spark.read.parquet('some/path/or/url')
+  - spark.read.csv('some/path/or/url')
+  - spark.read.text('some/path/or/url'), etc.
+"""</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="s">'some/path/or/url'</span><span class="p">)</span> 
+<span class="n">data</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s">"table"</span><span class="p">)</span>
+
+<span class="c"># Apply some SQL query to the data, which results in a DataFrame</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s">"""
+  select col1, col2, sum(col3)
+  from table
+  where col4 = 'some_val'
+  group by col1, col2
+"""</span><span class="p">)</span>
+
+<span class="c"># Write the query results to a target in your desired format (say, JSON)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">write</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="s">'target/path/'</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>The example above works conveniently if you can easily load your data as a dataframe using PySpark’s built-in functions. But sometimes you’re in a situation where your processed data ends up as a list of Python dictionaries, say when you weren’t required to use <code class="highlighter-rouge">spark.read</code> and/or <code class="highlighter-rouge">session.sql</code>. How can you load your data as a Spark DataFrame in order to take advantage of its capabilities?</p>
+
+<!--more-->
+
+<p>Let’s say you have a list of dictionaries as follows:</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s">'id'</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+        <span class="s">'uuid'</span><span class="p">:</span> <span class="s">'123e4567-e89b-12d3-a456'</span><span class="p">,</span>
+        <span class="s">'description'</span><span class="p">:</span> <span class="s">'lorem ipsum'</span><span class="p">,</span>
+        <span class="s">'price'</span><span class="p">:</span> <span class="mf">45.67</span><span class="p">,</span>
+        <span class="s">'some_date'</span><span class="p">:</span> <span class="n">date_object</span><span class="p">,</span>
+        <span class="s">'some_timestamp'</span><span class="p">:</span> <span class="n">datetime_object</span><span class="p">,</span>
+        <span class="s">'binary_file'</span><span class="p">:</span> <span class="n">b</span><span class="s">'binary-encoding'</span><span class="p">,</span>
+        <span class="s">'deleted'</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+        <span class="s">'tags'</span><span class="p">:</span> <span class="p">[</span><span class="s">'tag1'</span><span class="p">,</span> <span class="s">'tag2'</span><span class="p">,</span> <span class="s">'tag3'</span><span class="p">],</span>
+        <span class="s">'metadata'</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">'source'</span><span class="p">:</span> <span class="s">'universe'</span><span class="p">,</span>
+            <span class="s">'original_price'</span><span class="p">:</span> <span class="mi">33</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="c"># ...</span>
+<span class="p">]</span>
+</code></pre>
+</div>
+
+<p>Converting this into a Spark DataFrame is as simple as knowing how the datatype of each key-value pair of its dictionaries map to one of PySpark’s DataType subclasses. You can find the latest list of available PySpark data types <a href="https://spark.apache.org/docs/latest/api/python/_modules/pyspark/sql/types.html">here</a>.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">pyspark.sql.types</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">fields</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">StructField</span><span class="p">(</span><span class="s">'id'</span><span class="p">,</span> <span class="n">IntegerType</span><span class="p">(),</span> <span class="bp">False</span><span class="p">),</span>  
+    <span class="n">StructField</span><span class="p">(</span><span class="s">'uuid'</span><span class="p">,</span> <span class="n">StringType</span><span class="p">(),</span> <span class="bp">False</span><span class="p">),</span>  
+    <span class="n">StructField</span><span class="p">(</span><span class="s">'description'</span><span class="p">,</span> <span class="n">TextType</span><span class="p">(),</span> <span class="bp">False</span><span class="p">),</span> 
+    <span class="n">StructField</span><span class="p">(</span><span class="s">'price'</span><span class="p">,</span> <span class="n">DecimalType</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="bp">False</span><span class="p">),</span>
+    <span class="n">StructField</span><span class="p">(</span><span class="s">'some_date'</span><span class="p">,</span> <span class="n">DateType</span><span class="p">(),</span> <span class="bp">False</span><span class="p">),</span>  
+    <span class="n">StructField</span><span class="p">(</span><span class="s">'some_timestamp'</span><span class="p">,</span> <span class="n">TimestampType</span><span class="p">(),</span> <span class="bp">False</span><span class="p">),</span>
+    <span class="n">StructField</span><span class="p">(</span><span class="s">'binary_file'</span><span class="p">,</span> <span class="n">BinaryType</span><span class="p">(),</span> <span class="bp">False</span><span class="p">),</span>  
+    <span class="n">StructField</span><span class="p">(</span><span class="s">'deleted'</span><span class="p">,</span> <span class="n">BooleanType</span><span class="p">(),</span> <span class="bp">False</span><span class="p">),</span>
+    <span class="n">StructField</span><span class="p">(</span><span class="s">'tags'</span><span class="p">,</span> <span class="n">ArrayType</span><span class="p">(</span><span class="n">StringType</span><span class="p">()),</span> <span class="bp">False</span><span class="p">),</span>
+    <span class="n">StructField</span><span class="p">(</span><span class="s">'metadata'</span><span class="p">,</span> <span class="n">StructType</span><span class="p">(),</span> <span class="bp">False</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="n">schema</span> <span class="o">=</span> <span class="n">StructType</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">createDataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">schema</span><span class="p">)</span>
+
+<span class="c"># DataFrame related stuff here</span>
+<span class="n">df</span><span class="o">.</span><span class="n">write</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="s">'overwrite'</span><span class="p">)</span><span class="o">.</span><span class="n">parquet</span><span class="p">(</span><span class="s">'/some/target'</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>You can actually skip the type matching above and let Spark infer the datatypes contained in the dictionaries. But I personally do not encourage this because automatically inferring data types may lead to hard-to-debug side effects when you process the data downstream. It’s better to be explicit right from the start so you can confidently handle the data moving forward knowing that the data types for the fields are what you specified them to be.</p>
+
+    </article>
+    <span class="print-footer">Transforming Python Lists into Spark Dataframes - March 30, 2018 - Adler Santos</span>
+    <footer>
+  <hr class="slender">
+  <ul class="footer-links">
+    
+      <li>
+        <a href="//www.twitter.com/adlersantos"><span class="icon-twitter"></span></a>
+      </li>
+    
+  </ul>
+<div class="credits">
+<span>&copy; 2018 &nbsp;&nbsp;ADLER SANTOS</span></br> <br>
+<span>Powered by <a href="//github.com/clayh53/tufte-jekyll">Tufte theme for Jekyll</a>.</span>
+</div>
+</footer>
+
+  </body>
+</html>

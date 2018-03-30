@@ -61,6 +61,48 @@
 
         <li class="listing">
           <hr class="slender">
+          <a href="/articles/18/transforming-python-list-to-spark-dataframe"><h3 class="contrast">Transforming Python Lists into Spark Dataframes</h3></a>
+          <!-- <br><span class="smaller">March 30, 2018</span>  <br/> -->
+          <div><p>Data represented as dataframes are generally much easier to transform, filter, or write to a target source. In Spark, loading or querying data from a source will automatically be loaded as a dataframe.</p>
+
+<p>Here’s an example of loading, querying, and writing data using PySpark and SQL:</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pyspark</span>
+
+<span class="c"># Define your SparkContext and SparkSession</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">pyspark</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">SparkContext</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="s">'host'</span><span class="p">,</span> <span class="n">appName</span><span class="o">=</span><span class="s">'Sample App'</span><span class="p">)</span>
+<span class="n">session</span> <span class="o">=</span> <span class="n">pyspark</span><span class="o">.</span><span class="n">sql</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">SparkSession</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span>
+
+<span class="s">"""
+Load your data using:
+  - spark.read.json('some/path/or/url') 
+  - spark.read.parquet('some/path/or/url')
+  - spark.read.csv('some/path/or/url')
+  - spark.read.text('some/path/or/url'), etc.
+"""</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="s">'some/path/or/url'</span><span class="p">)</span> 
+<span class="n">data</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s">"table"</span><span class="p">)</span>
+
+<span class="c"># Apply some SQL query to the data, which results in a DataFrame</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s">"""
+  select col1, col2, sum(col3)
+  from table
+  where col4 = 'some_val'
+  group by col1, col2
+"""</span><span class="p">)</span>
+
+<span class="c"># Write the query results to a target in your desired format (say, JSON)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">write</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="s">'target/path/'</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>The example above works conveniently if you can easily load your data as a dataframe using PySpark’s built-in functions. But sometimes you’re in a situation where your processed data ends up as a list of Python dictionaries, say when you weren’t required to use <code class="highlighter-rouge">spark.read</code> and/or <code class="highlighter-rouge">session.sql</code>. How can you load your data as a Spark DataFrame in order to take advantage of its capabilities?</p>
+
+</div>
+        </li>
+    
+        <li class="listing">
+          <hr class="slender">
           <a href="/articles/18/logistic-regression-loss-cost-forms"><h3 class="contrast">How the loss and cost functions got their forms in logistic regression</h3></a>
           <!-- <br><span class="smaller">March 10, 2018</span>  <br/> -->
           <div><p>In logistic regression, the loss function <span>​<script type="math/tex">\mathcal{L}(\hat{y}, y)</script></span> and the cost function J take the forms</p>
