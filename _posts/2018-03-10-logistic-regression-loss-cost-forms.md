@@ -19,7 +19,7 @@ where {%m%}\hat{y} = \sigma(W^\text{T} X + b){%em%} is the sigmoid of the linear
 \sigma(z) = \frac{1}{1 + e^{-z}}.
 {% endmath %}
 
-To understand why {%m%}\mathcal{L}{%em%} and {%m%}J{%em%} take such forms, first note that {%m%}\hat{y}{%em%} is the probability of the binary classification variable {%m%}y{%em%} to be equal to a positive example ({%m%}y = 1{%em%}). <!--more--> This means for a single example {%m%}x{%em%}, {%m%}\hat{y}{%em%} takes the form {%m%}\hat{y} = p(y|x){%em%} if {%m%}y=1{%em%}. The other condition is when {%m%}y = 0{%em%}, where we want the probability to be equal to zero. To satisfy both of these conditions, we define {%m%}p(y|x){%em%} as:
+To understand why {%m%}\mathcal{L}{%em%} and {%m%}J{%em%} take such forms, first note that {%m%}\hat{y}{%em%} is the probability of the binary classification variable {%m%}y{%em%} to be equal to a positive example ({%m%}y = 1{%em%}). <!--more--> This means for a single example {%m%}x{%em%}, {%m%}\hat{y}{%em%} takes the form {%m%}\hat{y} = p(y|x){%em%} if {%m%}y=1{%em%}. The other condition is when {%m%}y = 0{%em%}, where we want the probability to be equal to zero. To satisfy both of these conditions, we define {%m%}p(y|x){%em%}:
 
 {% math %}
 p(y|x) = 
