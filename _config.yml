@@ -25,3 +25,5 @@ page:
 editor: gvim
 git:
   branch: master
+
+highlighter: rouge
